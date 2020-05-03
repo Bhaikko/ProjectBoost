@@ -1,0 +1,13 @@
+// Lecture 41
+Axis Conventions
++x = Right,
++y = Up
++z = Forward
+
+// Lecture 42
+Keep mesh away from main body which is empty object most of the time
+All scripts are attached to that object
+
+Keep Top level object scale close to (1, 1, 1)
+Beware of Pivot/Centre option (z)
+Check object rotates, scales and instantiates ok
