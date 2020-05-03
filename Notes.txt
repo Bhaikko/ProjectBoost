@@ -11,3 +11,11 @@ All scripts are attached to that object
 Keep Top level object scale close to (1, 1, 1)
 Beware of Pivot/Centre option (z)
 Check object rotates, scales and instantiates ok
+
+// Lecture 44
+A script on a gameobject is Component
+
+// Lecture 46
+Game should be Frame rate independent
+Longer frames lead to more movement
+Shorter frames lead to less movement
