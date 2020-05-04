@@ -19,3 +19,7 @@ A script on a gameobject is Component
 Game should be Frame rate independent
 Longer frames lead to more movement
 Shorter frames lead to less movement
+
+// Lecture 53
+Make things and Mechanics that already exist. If cannot, then code.
+When prototype, Go to extremes

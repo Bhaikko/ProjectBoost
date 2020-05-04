@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Rocket : MonoBehaviour
 
     Rigidbody myRigidbody = null;
     AudioSource audioSource = null;
+
+    bool isDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,8 +23,10 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Thrust();
-        Rotate();
+        if (!isDead) { 
+            Thrust();
+            Rotate();
+        }
     }
 
     private void Rotate()
@@ -57,11 +62,30 @@ public class Rocket : MonoBehaviour
             case "Friendly":
                 Debug.Log("Safe");
                 break;
+            
+            case "Finish":
+                StartCoroutine(LoadNextScene());
+                break;
 
             default:
-                Debug.Log("Die");
+                StartCoroutine(HandleDeath());
                 break;
         }
+    }
 
+    IEnumerator LoadNextScene()
+    {
+        isDead = true;
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int totalScene = SceneManager.sceneCountInBuildSettings;
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene((currentSceneIndex + 1) % totalScene);
+    }
+
+    IEnumerator HandleDeath()
+    {
+        isDead = true;
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene(0);
     }
 }
