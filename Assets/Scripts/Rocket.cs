@@ -20,10 +20,24 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProcessInput();
+        Thrust();
+        Rotate();
     }
 
-    private void ProcessInput()
+    private void Rotate()
+    {
+        myRigidbody.freezeRotation = true;  // Take manual Control of rotation
+
+        if (Input.GetKey(KeyCode.A)) {
+            transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime);
+        } else if (Input.GetKey(KeyCode.D)) {
+            transform.Rotate(-Vector3.forward, rotateSpeed * Time.deltaTime);
+        }
+
+        myRigidbody.freezeRotation = false; // Resume physics control of rotation
+    }
+
+    private void Thrust()
     {
         // Returns true when Key is held down
         if (Input.GetKey(KeyCode.Space)) {
@@ -34,14 +48,20 @@ public class Rocket : MonoBehaviour
         } else {
             audioSource.Stop();
         }
+    }
 
-        if (Input.GetKey(KeyCode.A))
+    private void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.gameObject.tag)
         {
-            transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime, Space.World);
+            case "Friendly":
+                Debug.Log("Safe");
+                break;
+
+            default:
+                Debug.Log("Die");
+                break;
         }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            transform.Rotate(-Vector3.forward, rotateSpeed * Time.deltaTime, Space.World);
-        }
+
     }
 }

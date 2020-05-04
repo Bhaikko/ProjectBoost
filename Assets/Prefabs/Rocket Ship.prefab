@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9342a7fc628f68489175f6dbb792279, type: 2}
+  - {fileID: 2100000, guid: b8b7f68f1abe95844baf13bfb57f0c65, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -139,12 +139,12 @@ Rigidbody:
   m_GameObject: {fileID: 4306783792918658436}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.25
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 8
+  m_Constraints: 56
   m_CollisionDetection: 0
 --- !u!82 &403576007
 AudioSource:
@@ -157,7 +157,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a5957f730afdf4f41bf53133de72a8ee, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.55
   m_Pitch: 1
   Loop: 0
@@ -254,8 +254,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9dde759597db30459405ac796b18da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrustSpeed: 10
-  rotateSpeed: 250
+  thrustSpeed: 25
+  rotateSpeed: 200
 --- !u!1 &4306783794146117888
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +315,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9342a7fc628f68489175f6dbb792279, type: 2}
+  - {fileID: 2100000, guid: edc953826dc2f8441a540d84de56a484, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -408,7 +408,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9342a7fc628f68489175f6dbb792279, type: 2}
+  - {fileID: 2100000, guid: b8b7f68f1abe95844baf13bfb57f0c65, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
