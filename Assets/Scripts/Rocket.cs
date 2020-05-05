@@ -8,6 +8,14 @@ public class Rocket : MonoBehaviour
     [SerializeField] float thrustSpeed = 1.0f;
     [SerializeField] float rotateSpeed = 1.0f;
 
+    [SerializeField] AudioClip thrustingSound = null;
+    [SerializeField] AudioClip deathSound = null;
+    [SerializeField] AudioClip newLevelSound = null;
+
+    [SerializeField] ParticleSystem thrustParticleSystem = null;
+    [SerializeField] ParticleSystem deathParticleSystem = null;
+    [SerializeField] ParticleSystem newLevelParticleSystem = null;
+
     Rigidbody myRigidbody = null;
     AudioSource audioSource = null;
 
@@ -48,19 +56,24 @@ public class Rocket : MonoBehaviour
         if (Input.GetKey(KeyCode.Space)) {
             myRigidbody.AddRelativeForce(Vector3.up * thrustSpeed);
             if (!audioSource.isPlaying) {
-                audioSource.Play();
+                audioSource.PlayOneShot(thrustingSound);
+            }
+            if (!thrustParticleSystem.isPlaying) { 
+                thrustParticleSystem.Play();
             }
         } else {
             audioSource.Stop();
+            thrustParticleSystem.Stop();
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (isDead) { return; }
+
         switch (collision.gameObject.tag)
         {
             case "Friendly":
-                Debug.Log("Safe");
                 break;
             
             case "Finish":
@@ -78,14 +91,22 @@ public class Rocket : MonoBehaviour
         isDead = true;
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int totalScene = SceneManager.sceneCountInBuildSettings;
+        
+        audioSource.PlayOneShot(newLevelSound);
+        newLevelParticleSystem.Play();
+
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene((currentSceneIndex + 1) % totalScene);
     }
 
     IEnumerator HandleDeath()
     {
+        audioSource.Stop();
+        audioSource.PlayOneShot(deathSound);
+        thrustParticleSystem.Stop();
+        deathParticleSystem.Play();
         isDead = true;
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(0);
     }
-}
+} 
