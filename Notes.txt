@@ -23,3 +23,12 @@ Shorter frames lead to less movement
 // Lecture 53
 Make things and Mechanics that already exist. If cannot, then code.
 When prototype, Go to extremes
+
+// Lecture 63
+Two floats can vary by tiny amount
+It's unpredictable to use == with floats
+Always specify the acceptable difference
+Always compare to Smallest value
+
+// Lecture 65
+The "Source of truth" means where the data is coming from.
