@@ -33,6 +33,7 @@ namespace ProjectBoost.Player {
             myRigidbody = GetComponent<Rigidbody>();
             audioSource = GetComponent<AudioSource>();
 
+            gameMode = FindObjectOfType<GameMode>();
         }
 
         // Update is called once per frame
@@ -123,8 +124,5 @@ namespace ProjectBoost.Player {
             gameMode.HandleDeath();
         }
 
-        public void SetGamemodeRef(GameMode gameMode) {
-            this.gameMode = gameMode;
-        }
     } 
 }
