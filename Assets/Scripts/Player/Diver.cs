@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ProjectBoost.Core;
+using ProjectBoost.Environment;
+using ProjectBoost.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace ProjectBoost.Player {
 
@@ -21,6 +23,8 @@ namespace ProjectBoost.Player {
         Rigidbody myRigidbody = null;
         AudioSource audioSource = null;
 
+        private GameMode gameMode;
+
         bool isDead = false;
 
         // Start is called before the first frame update
@@ -28,6 +32,7 @@ namespace ProjectBoost.Player {
         {
             myRigidbody = GetComponent<Rigidbody>();
             audioSource = GetComponent<AudioSource>();
+
         }
 
         // Update is called once per frame
@@ -73,18 +78,23 @@ namespace ProjectBoost.Player {
         {
             if (isDead) { return; }
 
-            switch (collision.gameObject.tag)
-            {
-                case "Friendly":
-                    break;
-                
-                case "Finish":
-                    StartCoroutine(LoadNextScene());
-                    break;
+            LandingPad landingPad = collision.gameObject.GetComponent<LandingPad>();
+            if (landingPad) {
+                switch (landingPad.GetPadType())
+                {
+                    case LandingPad.PadType.FRIENDLY:
+                        // Might Consider Refuel Functionality
+                        break;
+                    
+                    case LandingPad.PadType.LANDING:
+                        StartCoroutine(LoadNextScene());
+                        break;
 
-                default:
-                    StartCoroutine(HandleDeath());
-                    break;
+                    default:
+                        break;
+                }
+            } else {
+                StartCoroutine(HandleDeath());
             }
         }
 
@@ -96,6 +106,8 @@ namespace ProjectBoost.Player {
             newLevelParticleSystem.Play();
 
             yield return new WaitForSeconds(1.5f);
+
+            gameMode.LoadNextScene();
         }
 
         IEnumerator HandleDeath()
@@ -106,7 +118,13 @@ namespace ProjectBoost.Player {
             deathParticleSystem.Play();
             isDead = true;
             yield return new WaitForSeconds(1.5f);
-            SceneManager.LoadScene(0);
+            // SceneManager.LoadScene(0);
+
+            gameMode.HandleDeath();
+        }
+
+        public void SetGamemodeRef(GameMode gameMode) {
+            this.gameMode = gameMode;
         }
     } 
 }

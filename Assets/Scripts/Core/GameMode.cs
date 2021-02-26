@@ -4,6 +4,7 @@ using UnityEngine;
 
 using ProjectBoost.Environment;
 using ProjectBoost.Player;
+using ProjectBoost.SceneManagement;
 
 namespace ProjectBoost.Core {
     public class GameMode : MonoBehaviour
@@ -15,6 +16,7 @@ namespace ProjectBoost.Core {
         [SerializeField] Diver diverPrefab;
 
         private Diver diverRef;
+        private SceneHandler sceneHandler;
 
         void Start() {
             if (!launchPad) {
@@ -37,8 +39,21 @@ namespace ProjectBoost.Core {
                 launchPad.transform.position + spawnOffset,
                 Quaternion.identity
             );
+            diverRef.SetGamemodeRef(this);
+
+
+            sceneHandler = FindObjectOfType<SceneHandler>();
 
         }
+
+        public void HandleDeath() {
+            sceneHandler.LoadCurrentScene();
+        }
+
+        public void LoadNextScene() {
+            sceneHandler.LoadNextScene();
+        }
+        
 
     }
 }

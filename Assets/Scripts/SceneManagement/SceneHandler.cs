@@ -14,6 +14,13 @@ namespace ProjectBoost.SceneManagement {
             SceneManager.LoadScene((currentSceneIndex + 1) % totalScene);
         }
 
+        public void LoadCurrentScene() 
+        {
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+            SceneManager.LoadScene(currentSceneIndex);
+        }
+
         public void GameOver() 
         {
             int lastSceneIndex = SceneManager.sceneCountInBuildSettings;
