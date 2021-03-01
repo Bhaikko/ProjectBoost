@@ -29,11 +29,6 @@ namespace ProjectBoost.AI {
 
         }
 
-        private void Update()
-        {
-
-        }
-
         private void OnCollisionEnter(Collision collision)
         {
             ChangeDirection(collision);

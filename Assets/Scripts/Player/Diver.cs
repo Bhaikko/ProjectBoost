@@ -114,7 +114,7 @@ namespace ProjectBoost.Player {
         IEnumerator HandleDeath()
         {
             audioSource.Stop();
-            audioSource.PlayOneShot(deathSound);
+            // audioSource.PlayOneShot(deathSound);
             thrustParticleSystem.Stop();
             deathParticleSystem.Play();
             isDead = true;
