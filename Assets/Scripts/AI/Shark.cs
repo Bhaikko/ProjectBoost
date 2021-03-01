@@ -9,6 +9,7 @@ namespace ProjectBoost.AI {
         [SerializeField] float detectRadius = 5.0f;
         [SerializeField] float moveSpeed = 5.0f;
 
+        [SerializeField] float rayCastDistance = 10.0f;
         [SerializeField] Vector3 offsetWhileNavigating = new Vector3(0.0f, 2.0f, 0.0f);
 
         Transform target = null;
@@ -20,6 +21,7 @@ namespace ProjectBoost.AI {
 
         private void Start() {
             diverRef = FindObjectOfType<Diver>();
+
         }
 
         private void OnDrawGizmosSelected() {
@@ -39,7 +41,7 @@ namespace ProjectBoost.AI {
                     return;
                 }
 
-                Gizmos.DrawCube(targetPosition, new Vector3(5.0f, 5.0f, 5.0f));
+                Gizmos.DrawCube(targetPosition, new Vector3(1.0f, 1.0f, 1.0f));
             }
 
         }
@@ -55,7 +57,8 @@ namespace ProjectBoost.AI {
             bool isOccludingPath = Physics.Raycast(
                 transform.position,
                 new Vector3(playerPositionVector.x, 0.0f, 0.0f).normalized,
-                out hit 
+                out hit,
+                rayCastDistance
             );
 
             if (!wasOccluded) {
@@ -63,11 +66,21 @@ namespace ProjectBoost.AI {
                 targetPosition = diverRef.transform.position;
             }
 
-            if (isOccludingPath) {
+            if (!wasOccluded && isOccludingPath) {
                 if (hit.collider.GetComponent<OctopusHands>()) {
                     wasOccluded = true;
                     target = hit.collider.transform;
-                    targetPosition = hit.collider.transform.position + new Vector3(0.0f, 1.0f, 0.0f) * target.localScale.y / 2.0f + offsetWhileNavigating;
+
+                    Vector3 obstacleDirection = target.gameObject.GetComponent<OctopusHands>().GetMovementDirection();
+
+                    targetPosition = 
+                                    hit.collider.transform.position + 
+                                    obstacleDirection * target.localScale.y / 2.0f + 
+                                    obstacleDirection.y * offsetWhileNavigating;
+
+                    Vector3 direction = (targetPosition - transform.position).normalized;
+                    Debug.Log(target.gameObject.GetComponent<OctopusHands>().GetMovementDirection());
+                    targetPosition.x += direction.x * 2.0f;
                 }
 
             }

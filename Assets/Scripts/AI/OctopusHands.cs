@@ -35,5 +35,9 @@ namespace ProjectBoost.AI {
             Vector3 offset = movement * movementFactor;
             transform.position = startingPos + offset;
         }
+
+        public Vector3 GetMovementDirection() {
+            return movement.normalized;
+        }
     }
 }
