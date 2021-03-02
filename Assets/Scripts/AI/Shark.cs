@@ -9,7 +9,7 @@ namespace ProjectBoost.AI {
         [SerializeField] float detectRadius = 5.0f;
         [SerializeField] float moveSpeed = 5.0f;
 
-        [SerializeField] float rayCastDistance = 10.0f;
+        [SerializeField] float rayCastDistanceForPathfinding = 10.0f;
         [SerializeField] Vector3 offsetWhileNavigating = new Vector3(0.0f, 2.0f, 0.0f);
 
         Transform target = null;
@@ -32,9 +32,14 @@ namespace ProjectBoost.AI {
             if (diverRef) {
                 Vector3 playerPositionVector = diverRef.transform.position - transform.position;
                 
+                // Gizmos.DrawLine(
+                //     transform.position, 
+                //     (new Vector3(playerPositionVector.x, 0.0f, 0.0f).normalized * 10.0f) + transform.position
+                // );
+
                 Gizmos.DrawLine(
                     transform.position, 
-                    (new Vector3(playerPositionVector.x, 0.0f, 0.0f).normalized * 10.0f) + transform.position
+                    (playerPositionVector.normalized * detectRadius) + transform.position
                 );
 
                 if (!target) {
@@ -58,7 +63,7 @@ namespace ProjectBoost.AI {
                 transform.position,
                 new Vector3(playerPositionVector.x, 0.0f, 0.0f).normalized,
                 out hit,
-                rayCastDistance
+                rayCastDistanceForPathfinding
             );
 
             if (!wasOccluded) {
@@ -92,10 +97,26 @@ namespace ProjectBoost.AI {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
         }
 
+        private bool RayCastToPlayer() {
+            Vector3 playerPositionVector = diverRef.transform.position - transform.position;
+
+            RaycastHit hit;
+            bool isOccludingPath = Physics.Raycast(
+                transform.position,
+                playerPositionVector.normalized,
+                out hit,
+                detectRadius
+            );
+
+            return hit.collider.GetComponent<Diver>() != null || hit.collider.GetComponentInParent<Diver>() != null;
+        }
+
         private void Update() {
             if (CalculateDistanceFromPlayer() <= detectRadius) {
                 // Debug.Log("Detecting");
-                MoveTowardsPlayer();
+                if (RayCastToPlayer()) {
+                    MoveTowardsPlayer();
+                }
             }
         }
     }
