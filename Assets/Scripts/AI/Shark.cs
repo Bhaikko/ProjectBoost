@@ -17,6 +17,9 @@ namespace ProjectBoost.AI {
         Vector3 lastSeenPosition;
         Vector3 originalPosition;
 
+        [SerializeField] List<Waypoint> patrolPoints;
+        int currentPatrolIndex = 0;
+
         bool wasDetected = false;
         bool wasOccluded = false;
 
@@ -34,25 +37,25 @@ namespace ProjectBoost.AI {
         }
 
         private void OnDrawGizmos() {
-            if (diverRef) {
-                Vector3 playerPositionVector = diverRef.transform.position - transform.position;
+            // if (diverRef) {
+            //     Vector3 playerPositionVector = diverRef.transform.position - transform.position;
                 
-                // Gizmos.DrawLine(
-                //     transform.position, 
-                //     (new Vector3(playerPositionVector.x, 0.0f, 0.0f).normalized * 10.0f) + transform.position
-                // );
+            //     // Gizmos.DrawLine(
+            //     //     transform.position, 
+            //     //     (new Vector3(playerPositionVector.x, 0.0f, 0.0f).normalized * 10.0f) + transform.position
+            //     // );
 
-                // Gizmos.DrawLine(
-                //     transform.position, 
-                //     (playerPositionVector.normalized * detectRadius) + transform.position
-                // );
+            //     // Gizmos.DrawLine(
+            //     //     transform.position, 
+            //     //     (playerPositionVector.normalized * detectRadius) + transform.position
+            //     // );
 
-                // if (!target) {
-                //     return;
-                // }
+            //     // if (!target) {
+            //     //     return;
+            //     // }
 
-                // Gizmos.DrawCube(targetPosition, new Vector3(1.0f, 1.0f, 1.0f));
-            }
+            //     // Gizmos.DrawCube(targetPosition, new Vector3(1.0f, 1.0f, 1.0f));
+            // }
 
         }
 
@@ -116,15 +119,26 @@ namespace ProjectBoost.AI {
             return hit.collider.GetComponent<Diver>() != null || hit.collider.GetComponentInParent<Diver>() != null;
         }
 
+        private void Patrol() {
+            Vector3 currentPatrolPoint = patrolPoints[currentPatrolIndex].transform.position;
+
+            MoveTowardsDestination(currentPatrolPoint);
+            if ((currentPatrolPoint - transform.position).magnitude <= Mathf.Epsilon) {
+                currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Count;
+            }
+
+        }
+
         private void Update() {
             if (CalculateDistanceFromPlayer() <= detectRadius) {
-                // Debug.Log("Detecting");
                 if (RayCastToPlayer()) {
                     wasDetected = true;
                     lastSeenPosition = diverRef.transform.position;
 
                     MoveTowardsDestination(diverRef.transform.position);
-                } 
+                } else {
+                    Patrol();
+                }
             } else if (wasDetected) {
                 MoveTowardsDestination(lastSeenPosition);
 
@@ -133,7 +147,7 @@ namespace ProjectBoost.AI {
                 }
             } else {
                 // Return to Patroling Position
-                MoveTowardsDestination(originalPosition);
+                Patrol();
 
             }
         }
