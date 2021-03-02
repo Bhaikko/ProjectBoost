@@ -14,13 +14,18 @@ namespace ProjectBoost.AI {
 
         Transform target = null;
         Vector3 targetPosition = new Vector3();
+        Vector3 lastSeenPosition;
+        Vector3 originalPosition;
 
+        bool wasDetected = false;
         bool wasOccluded = false;
 
         private Diver diverRef = null;
 
         private void Start() {
             diverRef = FindObjectOfType<Diver>();
+
+            originalPosition = transform.position;
 
         }
 
@@ -37,16 +42,16 @@ namespace ProjectBoost.AI {
                 //     (new Vector3(playerPositionVector.x, 0.0f, 0.0f).normalized * 10.0f) + transform.position
                 // );
 
-                Gizmos.DrawLine(
-                    transform.position, 
-                    (playerPositionVector.normalized * detectRadius) + transform.position
-                );
+                // Gizmos.DrawLine(
+                //     transform.position, 
+                //     (playerPositionVector.normalized * detectRadius) + transform.position
+                // );
 
-                if (!target) {
-                    return;
-                }
+                // if (!target) {
+                //     return;
+                // }
 
-                Gizmos.DrawCube(targetPosition, new Vector3(1.0f, 1.0f, 1.0f));
+                // Gizmos.DrawCube(targetPosition, new Vector3(1.0f, 1.0f, 1.0f));
             }
 
         }
@@ -55,8 +60,8 @@ namespace ProjectBoost.AI {
             return Vector3.Distance(transform.position, diverRef.transform.position);
         }
 
-        private void MoveTowardsPlayer() {
-            Vector3 playerPositionVector = diverRef.transform.position - transform.position;
+        private void MoveTowardsDestination(Vector3 destination) {
+            Vector3 playerPositionVector = destination - transform.position;
 
             RaycastHit hit;
             bool isOccludingPath = Physics.Raycast(
@@ -68,7 +73,7 @@ namespace ProjectBoost.AI {
 
             if (!wasOccluded) {
                 target = diverRef.transform;
-                targetPosition = diverRef.transform.position;
+                targetPosition = destination;
             }
 
             if (!wasOccluded && isOccludingPath) {
@@ -115,8 +120,21 @@ namespace ProjectBoost.AI {
             if (CalculateDistanceFromPlayer() <= detectRadius) {
                 // Debug.Log("Detecting");
                 if (RayCastToPlayer()) {
-                    MoveTowardsPlayer();
+                    wasDetected = true;
+                    lastSeenPosition = diverRef.transform.position;
+
+                    MoveTowardsDestination(diverRef.transform.position);
+                } 
+            } else if (wasDetected) {
+                MoveTowardsDestination(lastSeenPosition);
+
+                if ((lastSeenPosition - transform.position).magnitude <= Mathf.Epsilon) {
+                    wasDetected = false;
                 }
+            } else {
+                // Return to Patroling Position
+                MoveTowardsDestination(originalPosition);
+
             }
         }
     }
