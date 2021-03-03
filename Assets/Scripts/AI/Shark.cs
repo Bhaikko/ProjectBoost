@@ -6,8 +6,14 @@ using UnityEngine;
 namespace ProjectBoost.AI {
     public class Shark : MonoBehaviour
     {
+        /*
+            TODO: Handle Hiding Behavior
+        */
+
+
         [SerializeField] float detectRadius = 5.0f;
         [SerializeField] float moveSpeed = 5.0f;
+        [SerializeField] float rotationSpeed = 5.0f;
 
         [SerializeField] float rayCastDistanceForPathfinding = 10.0f;
         [SerializeField] Vector3 offsetWhileNavigating = new Vector3(0.0f, 2.0f, 0.0f);
@@ -36,40 +42,33 @@ namespace ProjectBoost.AI {
             Gizmos.DrawWireSphere(transform.position, detectRadius);
         }
 
-        private void OnDrawGizmos() {
-            // if (diverRef) {
-            //     Vector3 playerPositionVector = diverRef.transform.position - transform.position;
-                
-            //     // Gizmos.DrawLine(
-            //     //     transform.position, 
-            //     //     (new Vector3(playerPositionVector.x, 0.0f, 0.0f).normalized * 10.0f) + transform.position
-            //     // );
-
-            //     // Gizmos.DrawLine(
-            //     //     transform.position, 
-            //     //     (playerPositionVector.normalized * detectRadius) + transform.position
-            //     // );
-
-            //     // if (!target) {
-            //     //     return;
-            //     // }
-
-            //     // Gizmos.DrawCube(targetPosition, new Vector3(1.0f, 1.0f, 1.0f));
-            // }
-
-        }
-
         private float CalculateDistanceFromPlayer() {
             return Vector3.Distance(transform.position, diverRef.transform.position);
         }
 
-        private void MoveTowardsDestination(Vector3 destination) {
-            Vector3 playerPositionVector = destination - transform.position;
+        private void RotateTowards(Vector3 target) {
+            // Debug.DrawRay(transform.position, target * 100.0f, Color.red);
+            // Debug.DrawRay(transform.position, transform.forward * 100.0f, Color.blue);
 
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                Quaternion.LookRotation(target.normalized), 
+                Time.deltaTime * rotationSpeed
+            );
+                
+        }
+
+        private void MoveTowardsDestination(Vector3 destination) {
+            Vector3 destinationDirectionVector = destination - transform.position;
+
+            // Rotate Towards Target 
+            RotateTowards(destinationDirectionVector);
+
+            // Once Rotation with movement is added, destinationDirectionVector can be replaced with right vector
             RaycastHit hit;
             bool isOccludingPath = Physics.Raycast(
                 transform.position,
-                new Vector3(playerPositionVector.x, 0.0f, 0.0f).normalized,
+                new Vector3(destinationDirectionVector.x, 0.0f, 0.0f).normalized,
                 out hit,
                 rayCastDistanceForPathfinding
             );
@@ -146,9 +145,7 @@ namespace ProjectBoost.AI {
                     wasDetected = false;
                 }
             } else {
-                // Return to Patroling Position
                 Patrol();
-
             }
         }
     }
