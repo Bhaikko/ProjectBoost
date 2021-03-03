@@ -47,8 +47,6 @@ namespace ProjectBoost.AI {
         }
 
         private void RotateTowards(Vector3 target) {
-            // Debug.DrawRay(transform.position, target * 100.0f, Color.red);
-            // Debug.DrawRay(transform.position, transform.forward * 100.0f, Color.blue);
 
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
@@ -61,24 +59,26 @@ namespace ProjectBoost.AI {
         private void MoveTowardsDestination(Vector3 destination) {
             Vector3 destinationDirectionVector = destination - transform.position;
 
-            // Rotate Towards Target 
-            RotateTowards(destinationDirectionVector);
-
-            // Once Rotation with movement is added, destinationDirectionVector can be replaced with right vector
             RaycastHit hit;
             bool isOccludingPath = Physics.Raycast(
                 transform.position,
-                new Vector3(destinationDirectionVector.x, 0.0f, 0.0f).normalized,
+                new Vector3(transform.forward.x, 0.0f, 0.0f).normalized,
                 out hit,
                 rayCastDistanceForPathfinding
             );
+
+            Debug.DrawRay(transform.position, (targetPosition - transform.position), Color.green);
 
             if (!wasOccluded) {
                 target = diverRef.transform;
                 targetPosition = destination;
             }
 
-            if (!wasOccluded && isOccludingPath) {
+            if (
+                !wasOccluded && 
+                isOccludingPath && 
+                Vector3.Distance(transform.position, hit.transform.position) < Vector3.Distance(transform.position, targetPosition)
+            ) {
                 if (hit.collider.GetComponent<OctopusHands>()) {
                     wasOccluded = true;
                     target = hit.collider.transform;
@@ -91,7 +91,6 @@ namespace ProjectBoost.AI {
                                     obstacleDirection.y * offsetWhileNavigating;
 
                     Vector3 direction = (targetPosition - transform.position).normalized;
-                    Debug.Log(target.gameObject.GetComponent<OctopusHands>().GetMovementDirection());
                     targetPosition.x += direction.x * 2.0f;
                 }
 
@@ -102,6 +101,8 @@ namespace ProjectBoost.AI {
             }
 
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            RotateTowards(targetPosition - transform.position);
+
         }
 
         private bool RayCastToPlayer() {
