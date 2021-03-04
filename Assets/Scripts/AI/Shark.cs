@@ -4,13 +4,14 @@ using ProjectBoost.Player;
 using UnityEngine;
 
 namespace ProjectBoost.AI {
+    public enum SharkState {
+        PATROLLING,
+        INVESTIGATING,
+        ATTACKING
+    };
+
     public class Shark : MonoBehaviour
     {
-        /*
-            TODO: Handle Hiding Behavior
-        */
-
-
         [SerializeField] float detectRadius = 5.0f;
         [SerializeField] float moveSpeed = 5.0f;
         [SerializeField] float rotationSpeed = 5.0f;
@@ -30,6 +31,8 @@ namespace ProjectBoost.AI {
         bool wasOccluded = false;
 
         private Diver diverRef = null;
+
+        SharkState sharkState = SharkState.PATROLLING;
 
         private void Start() {
             diverRef = FindObjectOfType<Diver>();
@@ -56,6 +59,7 @@ namespace ProjectBoost.AI {
                 
         }
 
+        // Rewrite This
         private void MoveTowardsDestination(Vector3 destination) {
             Vector3 destinationDirectionVector = destination - transform.position;
 
@@ -76,9 +80,10 @@ namespace ProjectBoost.AI {
 
             if (
                 !wasOccluded && 
-                isOccludingPath && 
+                isOccludingPath &&
                 Vector3.Distance(transform.position, hit.transform.position) < Vector3.Distance(transform.position, targetPosition)
             ) {
+                Debug.Log(hit.collider.name);
                 if (hit.collider.GetComponent<OctopusHands>()) {
                     wasOccluded = true;
                     target = hit.collider.transform;
@@ -92,6 +97,7 @@ namespace ProjectBoost.AI {
 
                     Vector3 direction = (targetPosition - transform.position).normalized;
                     targetPosition.x += direction.x * 2.0f;
+
                 }
 
             }
@@ -106,15 +112,17 @@ namespace ProjectBoost.AI {
         }
 
         private bool RayCastToPlayer() {
-            Vector3 playerPositionVector = diverRef.transform.position - transform.position;
+            Vector3 playerDirectionVector = diverRef.transform.position - transform.position;
 
             RaycastHit hit;
             bool isOccludingPath = Physics.Raycast(
                 transform.position,
-                playerPositionVector.normalized,
+                playerDirectionVector.normalized,
                 out hit,
                 detectRadius
             );
+
+            // Debug.DrawRay(transform.position, playerDirectionVector.normalized * 100.0f, Color.red);
 
             return hit.collider.GetComponent<Diver>() != null || hit.collider.GetComponentInParent<Diver>() != null;
         }
@@ -123,6 +131,7 @@ namespace ProjectBoost.AI {
             Vector3 currentPatrolPoint = patrolPoints[currentPatrolIndex].transform.position;
 
             MoveTowardsDestination(currentPatrolPoint);
+
             if ((currentPatrolPoint - transform.position).magnitude <= Mathf.Epsilon) {
                 currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Count;
             }
@@ -130,7 +139,20 @@ namespace ProjectBoost.AI {
         }
 
         private void Update() {
-            if (CalculateDistanceFromPlayer() <= detectRadius) {
+            if (wasDetected) {
+                if (diverRef.IsHiding()) {
+                    lastSeenPosition = diverRef.GetLastHidingPosition();
+                } else {
+                    lastSeenPosition = diverRef.transform.position;
+                }
+
+                MoveTowardsDestination(lastSeenPosition);
+
+                if ((lastSeenPosition - transform.position).magnitude <= Mathf.Epsilon) {
+                    wasDetected = false;
+                }
+                
+            } else if (CalculateDistanceFromPlayer() <= detectRadius) {
                 if (RayCastToPlayer()) {
                     wasDetected = true;
                     lastSeenPosition = diverRef.transform.position;
@@ -139,14 +161,7 @@ namespace ProjectBoost.AI {
                 } else {
                     Patrol();
                 }
-            } else if (wasDetected) {
-                MoveTowardsDestination(lastSeenPosition);
-
-                if ((lastSeenPosition - transform.position).magnitude <= Mathf.Epsilon) {
-                    wasDetected = false;
-                }
-                
-            } else {
+            }  else {
                 Patrol();
             }
         }

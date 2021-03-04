@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 885816107227425626}
   - component: {fileID: 4614218658155421776}
   - component: {fileID: 8620516723858217244}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 8775787885812394741}
   - component: {fileID: 6716503375617811934}
   - component: {fileID: 6093761059503585658}
+  - component: {fileID: 5841810423154532634}
   m_Layer: 0
   m_Name: Shark
   m_TagString: Untagged
@@ -223,3 +224,15 @@ MonoBehaviour:
   rayCastDistanceForPathfinding: 10
   offsetWhileNavigating: {x: 0, y: 2, z: 0}
   patrolPoints: []
+--- !u!114 &5841810423154532634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8507901714977212902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c699b22bc1caeeb4f9a4f804c7a52cad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

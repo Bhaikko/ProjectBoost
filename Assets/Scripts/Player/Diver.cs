@@ -138,11 +138,8 @@ namespace ProjectBoost.Player {
             this.isHiding = status;
         }
 
-        private void OnDrawGizmos() {
-            if (lastHidingPosition != Vector3.negativeInfinity) {
-                Gizmos.DrawCube(lastHidingPosition, new Vector3(2.0f, 2.0f, 2.0f));
-            }
-        }
+        public bool IsHiding() { return isHiding; }
+        public Vector3 GetLastHidingPosition() { return lastHidingPosition; }
 
     } 
 }

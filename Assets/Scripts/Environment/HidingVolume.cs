@@ -22,7 +22,6 @@ namespace ProjectBoost.Environment {
                 collision.gameObject.GetComponent<Diver>() || 
                 collision.gameObject.GetComponentInParent<Diver>()
             ) {
-                Debug.Log("Inside");
                 diverRef.SetHidingStatus(true, hidingOffset);
             }
         }
