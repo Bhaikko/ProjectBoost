@@ -24,8 +24,10 @@ namespace ProjectBoost.Player {
         AudioSource audioSource = null;
 
         private GameMode gameMode;
+        private Vector3 lastHidingPosition = Vector3.negativeInfinity;
 
-        bool isDead = false;
+        private bool isDead = false;
+        private bool isHiding = false;
 
         // Start is called before the first frame update
         void Start()
@@ -34,6 +36,7 @@ namespace ProjectBoost.Player {
             audioSource = GetComponent<AudioSource>();
 
             gameMode = FindObjectOfType<GameMode>();
+
         }
 
         // Update is called once per frame
@@ -122,6 +125,23 @@ namespace ProjectBoost.Player {
             // SceneManager.LoadScene(0);
 
             gameMode.HandleDeath();
+        }
+
+        public void SetHidingStatus(bool status, float hidingOffset = 0.0f) {
+            if (status) {
+                this.lastHidingPosition = transform.position + new Vector3(0.0f, hidingOffset, 0.0f);
+
+            } else {
+                this.lastHidingPosition = Vector3.negativeInfinity;
+            }
+
+            this.isHiding = status;
+        }
+
+        private void OnDrawGizmos() {
+            if (lastHidingPosition != Vector3.negativeInfinity) {
+                Gizmos.DrawCube(lastHidingPosition, new Vector3(2.0f, 2.0f, 2.0f));
+            }
         }
 
     } 

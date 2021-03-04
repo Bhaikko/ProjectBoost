@@ -145,6 +145,7 @@ namespace ProjectBoost.AI {
                 if ((lastSeenPosition - transform.position).magnitude <= Mathf.Epsilon) {
                     wasDetected = false;
                 }
+                
             } else {
                 Patrol();
             }
