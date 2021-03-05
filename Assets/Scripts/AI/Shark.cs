@@ -31,11 +31,13 @@ namespace ProjectBoost.AI {
         bool wasOccluded = false;
 
         private Diver diverRef = null;
+        private PathFinder pathFinder = null;
 
         SharkState sharkState = SharkState.PATROLLING;
 
         private void Start() {
             diverRef = FindObjectOfType<Diver>();
+            pathFinder = GetComponent<PathFinder>();
 
             originalPosition = transform.position;
 
@@ -47,68 +49,6 @@ namespace ProjectBoost.AI {
 
         private float CalculateDistanceFromPlayer() {
             return Vector3.Distance(transform.position, diverRef.transform.position);
-        }
-
-        private void RotateTowards(Vector3 target) {
-
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                Quaternion.LookRotation(target.normalized), 
-                Time.deltaTime * rotationSpeed
-            );
-                
-        }
-
-        // Rewrite This
-        private void MoveTowardsDestination(Vector3 destination) {
-            Vector3 destinationDirectionVector = destination - transform.position;
-
-            RaycastHit hit;
-            bool isOccludingPath = Physics.Raycast(
-                transform.position,
-                new Vector3(transform.forward.x, 0.0f, 0.0f).normalized,
-                out hit,
-                rayCastDistanceForPathfinding
-            );
-
-            Debug.DrawRay(transform.position, (targetPosition - transform.position), Color.green);
-
-            if (!wasOccluded) {
-                target = diverRef.transform;
-                targetPosition = destination;
-            }
-
-            if (
-                !wasOccluded && 
-                isOccludingPath &&
-                Vector3.Distance(transform.position, hit.transform.position) < Vector3.Distance(transform.position, targetPosition)
-            ) {
-                Debug.Log(hit.collider.name);
-                if (hit.collider.GetComponent<OctopusHands>()) {
-                    wasOccluded = true;
-                    target = hit.collider.transform;
-
-                    Vector3 obstacleDirection = target.gameObject.GetComponent<OctopusHands>().GetMovementDirection();
-
-                    targetPosition = 
-                                    hit.collider.transform.position + 
-                                    obstacleDirection * target.localScale.y / 2.0f + 
-                                    obstacleDirection.y * offsetWhileNavigating;
-
-                    Vector3 direction = (targetPosition - transform.position).normalized;
-                    targetPosition.x += direction.x * 2.0f;
-
-                }
-
-            }
-
-            if ((targetPosition - transform.position).magnitude <= Mathf.Epsilon) {
-                wasOccluded = false;
-            }
-
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-            RotateTowards(targetPosition - transform.position);
-
         }
 
         private bool RayCastToPlayer() {
@@ -130,7 +70,8 @@ namespace ProjectBoost.AI {
         private void Patrol() {
             Vector3 currentPatrolPoint = patrolPoints[currentPatrolIndex].transform.position;
 
-            MoveTowardsDestination(currentPatrolPoint);
+            // MoveTowardsDestination(currentPatrolPoint);
+            pathFinder.MoveToDestination(currentPatrolPoint);
 
             if ((currentPatrolPoint - transform.position).magnitude <= Mathf.Epsilon) {
                 currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Count;
@@ -139,31 +80,33 @@ namespace ProjectBoost.AI {
         }
 
         private void Update() {
-            if (wasDetected) {
-                if (diverRef.IsHiding()) {
-                    lastSeenPosition = diverRef.GetLastHidingPosition();
-                } else {
-                    lastSeenPosition = diverRef.transform.position;
-                }
+            // if (wasDetected) {
+            //     if (diverRef.IsHiding()) {
+            //         lastSeenPosition = diverRef.GetLastHidingPosition();
+            //     } else {
+            //         lastSeenPosition = diverRef.transform.position;
+            //     }
 
-                MoveTowardsDestination(lastSeenPosition);
+            //     pathFinder.MoveTowardsDestination(lastSeenPosition);
 
-                if ((lastSeenPosition - transform.position).magnitude <= Mathf.Epsilon) {
-                    wasDetected = false;
-                }
+            //     if ((lastSeenPosition - transform.position).magnitude <= Mathf.Epsilon) {
+            //         wasDetected = false;
+            //     }
                 
-            } else if (CalculateDistanceFromPlayer() <= detectRadius) {
-                if (RayCastToPlayer()) {
-                    wasDetected = true;
-                    lastSeenPosition = diverRef.transform.position;
+            // } else if (CalculateDistanceFromPlayer() <= detectRadius) {
+            //     if (RayCastToPlayer()) {
+            //         wasDetected = true;
+            //         lastSeenPosition = diverRef.transform.position;
 
-                    MoveTowardsDestination(diverRef.transform.position);
-                } else {
-                    Patrol();
-                }
-            }  else {
-                Patrol();
-            }
+            //         MoveTowardsDestination(diverRef.transform.position);
+            //     } else {
+            //         Patrol();
+            //     }
+            // }  else {
+            //     Patrol();
+            // }
+
+            Patrol();
         }
     }
 }
