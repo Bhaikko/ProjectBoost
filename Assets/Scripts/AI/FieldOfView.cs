@@ -11,6 +11,12 @@ namespace ProjectBoost.AI {
         [SerializeField] [Range(0, 360)] float viewAngle;   
         [SerializeField] LayerMask playerMask;
 
+        IEnemy ownerRef = null;
+
+        public void SetOwnerRef(IEnemy enemy) {
+            this.ownerRef = enemy;
+        }
+
         public Vector3 DirectionFromAngle(float angle, bool isGlobalAngle) {
             if (!isGlobalAngle) {
                 angle += transform.eulerAngles.y;
@@ -33,8 +39,12 @@ namespace ProjectBoost.AI {
         IEnumerator VisibilityTest() {
             while (true) {
                 CheckVisibilityToPlayer();
-                yield return new WaitForSeconds(1.0f);
+                yield return new WaitForSeconds(0.1f);
             }
+        }
+
+        void Update() {
+            // CheckVisibilityToPlayer();
         }
 
         bool CheckIsDiver(Transform transform) {
@@ -44,21 +54,25 @@ namespace ProjectBoost.AI {
         void CheckVisibilityToPlayer() {
             Collider[] objectsInView = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
 
+            if (objectsInView.Length == 0) {
+                return;
+            }
 
-            for (int i = 0; i < objectsInView.Length; i++) {
-                Transform target = objectsInView[i].transform;
+            Transform target = objectsInView[0].transform;
 
-                if (CheckIsDiver(target)) {
-                    float distanceToTarget = Vector3.Distance(transform.position, target.position);
-                    Vector3 directionToTarget = (target.position - transform.position).normalized;
+            if (CheckIsDiver(target)) {
+                float distanceToTarget = Vector3.Distance(transform.position, target.position);
+                Vector3 directionToTarget = (target.position - transform.position).normalized;
 
-                    if (Vector3.Angle(transform.forward, directionToTarget) < viewAngle / 2) {
-                        Debug.DrawRay(transform.position, directionToTarget * distanceToTarget, Color.red);
-                        RaycastHit hit;
-                        if (Physics.Raycast(transform.position, directionToTarget, out hit, distanceToTarget)) {
-                            if (CheckIsDiver(hit.transform)) {
-                                Debug.Log("Is Player");
-                            }
+                if (Vector3.Angle(transform.forward, directionToTarget) < viewAngle / 2) {
+                    Debug.DrawRay(transform.position, directionToTarget * distanceToTarget, Color.red);
+                    RaycastHit hit;
+                    if (Physics.Raycast(transform.position, directionToTarget, out hit, distanceToTarget)) {
+                        if (CheckIsDiver(hit.transform)) {
+                            // Debug.Log("Is Player");
+                            ownerRef.OnSeePlayer(hit.transform.position);
+                        } else {
+                            ownerRef.PlayerHidden();
                         }
                     }
                 }
