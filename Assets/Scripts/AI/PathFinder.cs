@@ -14,7 +14,7 @@ namespace ProjectBoost.AI {
         private void RotateTowards(Vector3 target) {
             target -= transform.position;
 
-            transform.rotation = Quaternion.Slerp(
+            transform.localRotation = Quaternion.Slerp(
                 transform.rotation,
                 Quaternion.LookRotation(target.normalized), 
                 Time.deltaTime * rotationSpeed
@@ -53,7 +53,7 @@ namespace ProjectBoost.AI {
                 movementSpeed * Time.deltaTime
             );
 
-            // Debug.DrawLine(transform.position, destination, Color.red);
+            Debug.DrawLine(transform.position, destination, Color.red);
 
             RotateTowards(destination);
         }

@@ -20,8 +20,8 @@ public class FieldOfViewEditor : Editor
             fow.GetViewRadius()
         );
 
-        Vector3 viewAngleA = fow.DirectionFromAngle(-fow.GetViewAngle() / 2, false);
-        Vector3 viewAngleB = fow.DirectionFromAngle(fow.GetViewAngle() / 2, false);
+        Vector3 viewAngleA = Quaternion.Euler(0, 0, fow.GetViewAngle() / 2) * fow.transform.forward;
+        Vector3 viewAngleB = Quaternion.Euler(0, 0, -fow.GetViewAngle() / 2) * fow.transform.forward;
 
         Handles.DrawLine(fow.transform.position, fow.transform.position + viewAngleA * fow.GetViewRadius());
         Handles.DrawLine(fow.transform.position, fow.transform.position + viewAngleB * fow.GetViewRadius());
