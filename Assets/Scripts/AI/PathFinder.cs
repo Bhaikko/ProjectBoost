@@ -31,7 +31,10 @@ namespace ProjectBoost.AI {
                 maxRayCastDistanceForPathfinding
             );
 
-            if (isPathOcculuded) {
+            if (
+                isPathOcculuded &&
+                Vector3.Distance(transform.position, destination) > Vector3.Distance(transform.position, hit.collider.transform.position)
+            ) {
                 if (hit.collider.GetComponent<OctopusHands>()) { 
                     Transform target = hit.collider.transform;
 
@@ -41,7 +44,6 @@ namespace ProjectBoost.AI {
                         hit.collider.transform.position + 
                         obstacleDirection * target.localScale.y / 2.0f +
                         obstacleDirection * offsetWhileNavigating;
-                        
                 }
             }
 

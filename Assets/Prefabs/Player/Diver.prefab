@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4306783792843063982}
   - component: {fileID: 4306783792843063983}
   - component: {fileID: 4306783792843063980}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Booster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 403576007}
   - component: {fileID: 4063328455777376591}
   - component: {fileID: 8876956397046990697}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Diver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 4306783794146117892}
   - component: {fileID: 4306783794146117893}
   - component: {fileID: 4306783794146117890}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 4306783794165334391}
   - component: {fileID: 4306783794165334388}
   - component: {fileID: 4306783794165334389}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Booster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 4306783794656125975}
   - component: {fileID: 4306783794656125972}
   - component: {fileID: 4306783794656125973}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,6 +575,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Success Particles
       objectReference: {fileID: 0}
+    - target: {fileID: 1664836844622050, guid: 62198a3a5dbb64a4f9e1618929224faa, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4100699973242056, guid: 62198a3a5dbb64a4f9e1618929224faa, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -644,6 +648,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket Jet Particles
       objectReference: {fileID: 0}
+    - target: {fileID: 1113205305641416, guid: a3553fd250eb92d4091bebde350c6739, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4940884351362868, guid: a3553fd250eb92d4091bebde350c6739, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -712,6 +720,10 @@ PrefabInstance:
     - target: {fileID: 1469142659871422, guid: ab79a37535b979f48b6de56e3a0a5cb0, type: 3}
       propertyPath: m_Name
       value: Explosion Particles
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469142659871422, guid: ab79a37535b979f48b6de56e3a0a5cb0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4436899185823514, guid: ab79a37535b979f48b6de56e3a0a5cb0, type: 3}
       propertyPath: m_RootOrder
