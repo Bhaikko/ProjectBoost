@@ -27,6 +27,7 @@ namespace ProjectBoost.AI {
             bool isPathOcculuded = Physics.Raycast(
                 transform.position,
                 new Vector3(transform.forward.x, 0.0f, 0.0f),
+                // transform.forward,
                 out hit,
                 maxRayCastDistanceForPathfinding
             );

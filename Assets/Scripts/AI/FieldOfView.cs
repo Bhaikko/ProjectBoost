@@ -43,10 +43,6 @@ namespace ProjectBoost.AI {
             }
         }
 
-        void Update() {
-            // CheckVisibilityToPlayer();
-        }
-
         bool CheckIsDiver(Transform transform) {
             return transform.GetComponent<Diver>() || transform.GetComponentInParent<Diver>();
         }
@@ -55,6 +51,9 @@ namespace ProjectBoost.AI {
             Collider[] objectsInView = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
 
             if (objectsInView.Length == 0) {
+                if (ownerRef != null) {
+                    ownerRef.PlayerHidden();
+                }
                 return;
             }
 
@@ -69,10 +68,7 @@ namespace ProjectBoost.AI {
                     RaycastHit hit;
                     if (Physics.Raycast(transform.position, directionToTarget, out hit, distanceToTarget)) {
                         if (CheckIsDiver(hit.transform)) {
-                            // Debug.Log("Is Player");
                             ownerRef.OnSeePlayer(hit.transform.position);
-                        } else {
-                            ownerRef.PlayerHidden();
                         }
                     }
                 }

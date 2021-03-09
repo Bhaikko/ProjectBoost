@@ -67,7 +67,6 @@ namespace ProjectBoost.AI {
 
                 if (sharkState == SharkState.INVESTIGATING) {
                     if (Vector3.Distance(transform.position, lastSeenPosition) <= Mathf.Epsilon) {
-                        Debug.Log("Lost Target");
                         sharkState = SharkState.PATROLLING;
                     }
                 }
