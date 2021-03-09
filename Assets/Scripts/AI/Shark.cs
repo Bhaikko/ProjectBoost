@@ -58,8 +58,16 @@ namespace ProjectBoost.AI {
         }
 
         private void DecideBehavior() {
+            // Debug.Log(diverRef.IsHiding());
+
             if (isPlayerSpotted) {
-                sharkState = SharkState.ATTACKING;
+                if (diverRef.IsHiding()) {
+                    isPlayerSpotted = false;
+                    lastSeenPosition = diverRef.GetLastHidingPosition();
+                    sharkState = SharkState.INVESTIGATING;
+                } else {
+                    sharkState = SharkState.ATTACKING;
+                }
             } else {
                 if (sharkState == SharkState.ATTACKING) {
                     sharkState = SharkState.INVESTIGATING;

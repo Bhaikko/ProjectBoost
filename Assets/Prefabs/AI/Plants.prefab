@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1464583396933206781}
   - component: {fileID: 2830582948677564711}
   - component: {fileID: 6952480116936086747}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HidingVolume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f3fda15e36efc44295a2af2fc13a8ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diverRef: {fileID: 0}
+  hidingOffset: 5
 --- !u!1 &6893370484484820641
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 2456697080170755679}
   - component: {fileID: 4946102196729570339}
   - component: {fileID: 1681484931652385497}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Plants
   m_TagString: Untagged
   m_Icon: {fileID: 0}
