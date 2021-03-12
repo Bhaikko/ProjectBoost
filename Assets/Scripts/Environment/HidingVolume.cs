@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using ProjectBoost.Player;
+using ProjectBoost.AI;
 
 namespace ProjectBoost.Environment {
     public class HidingVolume : MonoBehaviour
@@ -10,6 +11,7 @@ namespace ProjectBoost.Environment {
         Diver diverRef;
 
         [SerializeField] float hidingOffset = 5.0f;
+        [SerializeField] List<Eel> eels = new List<Eel>();
 
         void Start()
         {
@@ -36,6 +38,13 @@ namespace ProjectBoost.Environment {
             }
         }
 
+        private void LightUpEels() {
+
+        }
+
+        private void UnLitEels() {
+            
+        }
         
     }
 }
