@@ -25,6 +25,7 @@ namespace ProjectBoost.Environment {
                 collision.gameObject.GetComponentInParent<Diver>()
             ) {
                 diverRef.SetHidingStatus(true, hidingOffset);
+                LightUpEels();
             }
         }
 
@@ -35,15 +36,20 @@ namespace ProjectBoost.Environment {
                 collision.gameObject.GetComponentInParent<Diver>()
             ) {
                 diverRef.SetHidingStatus(false);
+                UnLitEels();
             }
         }
 
         private void LightUpEels() {
-
+            foreach (Eel eel in eels) {
+                eel.ChangeEmissionIntensity(5.0f);
+            }
         }
 
         private void UnLitEels() {
-            
+            foreach (Eel eel in eels) {
+                eel.ChangeEmissionIntensity(-10.0f);
+            }
         }
         
     }

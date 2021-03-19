@@ -151,3 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08fc2f4731dc3b5409921e1d9230496b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bodyRef: {fileID: 4997617810056329980}
+  emissionChangeSpeed: 1
+  initialEmissionColor: {r: 0.9150943, g: 0.68321097, b: 0, a: 0}
