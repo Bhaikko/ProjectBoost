@@ -22,6 +22,7 @@ namespace ProjectBoost.Player {
 
         Rigidbody myRigidbody = null;
         AudioSource audioSource = null;
+        Animator diverAnimator = null;
 
         private GameMode gameMode;
         private Vector3 lastHidingPosition = Vector3.negativeInfinity;
@@ -34,6 +35,8 @@ namespace ProjectBoost.Player {
         {
             myRigidbody = GetComponent<Rigidbody>();
             audioSource = GetComponent<AudioSource>();
+
+            diverAnimator = GetComponentInChildren<Animator>();
 
             gameMode = FindObjectOfType<GameMode>();
 
@@ -52,6 +55,10 @@ namespace ProjectBoost.Player {
         {
             //myRigidbody.freezeRotation = true;  // Take manual Control of rotation
             myRigidbody.angularVelocity = Vector3.zero;
+
+            diverAnimator.SetFloat("Horizontal", Input.GetAxis("Rotate"));
+            // transform.Rotate(-1.0f * Mathf.Ceil(Input.GetAxis("Rotate")) * Vector3.forward, rotateSpeed * Time.deltaTime);
+            
             if (Input.GetKey(KeyCode.A)) {
                 transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime);
             } else if (Input.GetKey(KeyCode.D)) {
@@ -64,7 +71,9 @@ namespace ProjectBoost.Player {
         private void Thrust()
         {
             // Returns true when Key is held down
-            if (Input.GetKey(KeyCode.Space)) {
+            if (Input.GetAxis("Thrust") > 0.0f) {
+                
+                diverAnimator.SetFloat("Vertical", Input.GetAxis("Thrust"));
                 myRigidbody.AddRelativeForce(Vector3.up * thrustSpeed);
                 if (!audioSource.isPlaying) {
                     audioSource.PlayOneShot(thrustingSound);

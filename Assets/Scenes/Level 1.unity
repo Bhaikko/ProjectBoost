@@ -883,6 +883,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2685358910527906801, guid: 27b16f691ff6596428e7bdce556cf998,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 973b7e989ab8e8d4dbc8e89ef0102266, type: 2}
+    - target: {fileID: 4063328455777376591, guid: 27b16f691ff6596428e7bdce556cf998,
+        type: 3}
+      propertyPath: rotateSpeed
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063328455777376591, guid: 27b16f691ff6596428e7bdce556cf998,
+        type: 3}
+      propertyPath: thrustSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4306783792918658436, guid: 27b16f691ff6596428e7bdce556cf998,
         type: 3}
       propertyPath: m_Name
@@ -1160,20 +1175,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 263597251, guid: 1365437ecbfa690488d53d929671cdbb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.63497
+      value: -15.634378
       objectReference: {fileID: 0}
     - target: {fileID: 263597251, guid: 1365437ecbfa690488d53d929671cdbb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.385287
+      value: 15.385289
       objectReference: {fileID: 0}
     - target: {fileID: 263597251, guid: 1365437ecbfa690488d53d929671cdbb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -46.7256
+      value: -12.790379
       objectReference: {fileID: 0}
     - target: {fileID: 263597252, guid: 1365437ecbfa690488d53d929671cdbb, type: 3}
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1755985534}
+    - target: {fileID: 1134396371, guid: 1365437ecbfa690488d53d929671cdbb, type: 3}
+      propertyPath: m_TrackedObjectOffset.z
+      value: 3.87
+      objectReference: {fileID: 0}
     - target: {fileID: 2018779818, guid: 1365437ecbfa690488d53d929671cdbb, type: 3}
       propertyPath: m_ChildCameras.Array.size
       value: 0
@@ -1238,20 +1257,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cameras
       objectReference: {fileID: 0}
+    - target: {fileID: 2426209664077679392, guid: 1365437ecbfa690488d53d929671cdbb,
+        type: 3}
+      propertyPath: far clip plane
+      value: 5000
+      objectReference: {fileID: 0}
     - target: {fileID: 2426209664077679399, guid: 1365437ecbfa690488d53d929671cdbb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.63497
+      value: -15.634378
       objectReference: {fileID: 0}
     - target: {fileID: 2426209664077679399, guid: 1365437ecbfa690488d53d929671cdbb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.385287
+      value: 15.385289
       objectReference: {fileID: 0}
     - target: {fileID: 2426209664077679399, guid: 1365437ecbfa690488d53d929671cdbb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -46.7256
+      value: -12.790379
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1365437ecbfa690488d53d929671cdbb, type: 3}
