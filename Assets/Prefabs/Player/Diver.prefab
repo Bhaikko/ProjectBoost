@@ -273,8 +273,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9dde759597db30459405ac796b18da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrustSpeed: 20
-  rotateSpeed: 200
+  thrustSpeed: 5
+  rotateSpeed: 250
   thrustingSound: {fileID: 8300000, guid: a5957f730afdf4f41bf53133de72a8ee, type: 3}
   deathSound: {fileID: 8300000, guid: a297ae1ea4edbbd4c8cc344dfdea3833, type: 3}
   newLevelSound: {fileID: 8300000, guid: cdbf58e3eeafcd245b12a37f744292ae, type: 3}
@@ -865,6 +865,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 1040d9df485d94346a3950f04413749d,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 973b7e989ab8e8d4dbc8e89ef0102266, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1040d9df485d94346a3950f04413749d, type: 3}
 --- !u!4 &8332894504861301131 stripped

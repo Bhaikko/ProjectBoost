@@ -21,7 +21,22 @@ ModelImporter:
   - first:
       74: -6804848053867720478
     second: Diver|TurnRight
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: 6aae7a55121e38f47bec62a688c3a034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gear
+    second: {fileID: 2100000, guid: b32f5f506b7bb204bb01478b43cc154c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HeadGear
+    second: {fileID: 2100000, guid: be3c9e00fdaaa8145b1cf59e2eda9099, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
