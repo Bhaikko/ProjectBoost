@@ -17,15 +17,14 @@ namespace ProjectBoost.AI {
         private void Start() {
             bodyMaterial = bodyRef.GetComponent<Renderer>().materials[0];
 
-            // initialEmissionColor = bodyMaterial.GetColor("_EmissionColor");
-
             newIntensity = emissiveIntensity;
 
         }
 
         private void Update() {
             emissiveIntensity = Mathf.SmoothStep(emissiveIntensity, newIntensity, emissionChangeSpeed * Time.deltaTime);
-            bodyMaterial.SetColor("_EmissionColor", initialEmissionColor * Mathf.Pow(2,  emissiveIntensity / 2.0f));
+
+            bodyMaterial.SetColor("_Emission", initialEmissionColor * Mathf.Pow(2,  emissiveIntensity / 2.0f));
             
         }
 
