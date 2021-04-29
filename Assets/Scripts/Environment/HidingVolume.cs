@@ -42,7 +42,7 @@ namespace ProjectBoost.Environment {
 
         private void LightUpEels() {
             foreach (Eel eel in eels) {
-                eel.ChangeEmissionIntensity(5.0f);
+                eel.ChangeEmissionIntensity(-1.0f);
             }
         }
 

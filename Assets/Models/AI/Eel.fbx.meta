@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: 027b706d610b51f4f9df418ac1419813
+guid: bbe119cc22ec61b4a821dabcfb059385
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
-  - first:
-      74: -3100369314251171874
-    second: Idle
   - first:
       74: 2655625578170132136
     second: Snake|Attack_Back

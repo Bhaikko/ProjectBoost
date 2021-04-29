@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ProjectBoost.Player;
 using UnityEngine;
 
 namespace ProjectBoost.AI {
@@ -14,8 +15,11 @@ namespace ProjectBoost.AI {
         [SerializeField] Color initialEmissionColor;
         private float newIntensity;
 
+        Animator animator;
+
         private void Start() {
             bodyMaterial = bodyRef.GetComponent<Renderer>().materials[0];
+            animator = GetComponentInChildren<Animator>();
 
             newIntensity = emissiveIntensity;
 
@@ -30,6 +34,21 @@ namespace ProjectBoost.AI {
 
         public void ChangeEmissionIntensity(float value) {
             newIntensity = value;
+        }
+
+        private void OnCollisionEnter(Collision collision) {
+            Diver diver = collision.gameObject.GetComponent<Diver>();
+
+            if (diver) {
+                Vector3 diverDirection = diver.transform.position - transform.position;
+
+                float cosAngle = Vector3.Dot(diverDirection.normalized, transform.right);
+                if (cosAngle < 0.0f) {
+                    animator.SetTrigger("AttackBack");
+                } else {
+                    animator.SetTrigger("AttackForward");
+                }
+            }
         }
     }
 }
