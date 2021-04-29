@@ -43,9 +43,12 @@ namespace ProjectBoost.AI {
                 Vector3 diverDirection = diver.transform.position - transform.position;
 
                 float cosAngle = Vector3.Dot(diverDirection.normalized, transform.right);
+
                 if (cosAngle < 0.0f) {
+                    transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, Mathf.Rad2Deg * Mathf.Acos(cosAngle) - 150.0f);
                     animator.SetTrigger("AttackBack");
                 } else {
+                    transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, Mathf.Rad2Deg * Mathf.Acos(cosAngle) - 30.0f);
                     animator.SetTrigger("AttackForward");
                 }
             }
