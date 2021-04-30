@@ -13,6 +13,7 @@
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
+        Cull Off
 
         Pass
         {
@@ -70,6 +71,8 @@
 
                 return col + _Emission;
             }
+
+            
             ENDCG
         }
     }

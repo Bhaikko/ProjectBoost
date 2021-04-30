@@ -1,17 +1,23 @@
 fileFormatVersion: 2
-guid: d25fe37828c04ee439527de45c6f6047
+guid: c0556894b3499e849bf3254cb4fce79c
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
       74: -5317887767387918893
-    second: Floating
+    second: JellyFIsh | Floating
+  - first:
+      74: -4758551368516870392
+    second: JellyFIsh|Accelerate
   - first:
       74: -4233674979436573333
     second: Jelly Fish|Acceletrate
   - first:
       74: 7843313747284572756
     second: Jelly Fish|Floating
+  - first:
+      74: -8325587143312959353
+    second: JellyFIsh|Floating
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -39,10 +45,10 @@ ModelImporter:
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
-    animationDoRetargetingWarnings: 0
+    animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -51,8 +57,8 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Jelly Fish|Acceletrate
-      takeName: Jelly Fish|Acceletrate
+      name: JellyFIsh|Floating
+      takeName: Floating
       internalID: 0
       firstFrame: 0
       lastFrame: 29
@@ -62,7 +68,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -80,8 +86,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Jelly Fish|Floating
-      takeName: Jelly Fish|Floating
+      name: JellyFIsh|Accelerate
+      takeName: Acceletrate
       internalID: 0
       firstFrame: 0
       lastFrame: 29
@@ -91,7 +97,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -150,7 +156,117 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: JellyFish 1(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Jelly Fish
+      parentName: JellyFish 1(Clone)
+      position: {x: -0, y: 7.44668, z: 0}
+      rotation: {x: -0.00000009415696, y: -0.7071067, z: 0.7071068, w: 0.00000009415697}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Bone
+      parentName: Jelly Fish
+      position: {x: 6.2563116e-10, y: -4.949595e-10, z: -0.0041433675}
+      rotation: {x: 0.694958, y: -0.0000000018189341, z: -0.0000000018189416, w: 0.71905035}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.001
+      parentName: Bone
+      position: {x: 1.61815e-16, y: 0.009999998, z: -1.8626453e-11}
+      rotation: {x: 1.9602395e-16, y: -0.000000043711402, z: 0.000000075497894, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Bone.002
+      parentName: Bone.001
+      position: {x: -1.2434498e-16, y: 0.013302217, z: 7.450593e-11}
+      rotation: {x: 1.3451646e-35, y: 2.0872193e-14, z: 2.5257576e-14, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Bone.003
+      parentName: Bone.002
+      position: {x: -2.1316282e-16, y: 0.013743981, z: -9.313193e-11}
+      rotation: {x: 0.5569534, y: 0.13556543, z: 0.09604286, w: 0.8137572}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.9999999}
+    - name: Bone.004
+      parentName: Bone.003
+      position: {x: 6.0070304e-10, y: 0.010474418, z: -0.0000000037858263}
+      rotation: {x: -0.4251889, y: 0.04633187, z: -0.1683224, w: 0.8881077}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.005
+      parentName: Bone.004
+      position: {x: -4.656613e-10, y: 0.013889374, z: 7.729977e-10}
+      rotation: {x: 0.06279486, y: -0.03374743, z: -0.17040391, w: 0.9827922}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Bone.010
+      parentName: Bone.005
+      position: {x: -5.9604643e-10, y: 0.008291077, z: -6.705522e-10}
+      rotation: {x: 0.003483491, y: -0.005278983, z: -0.04473509, w: 0.9989789}
+      scale: {x: 1, y: 1, z: 0.9999999}
+    - name: Bone.006
+      parentName: Bone.002
+      position: {x: -2.1316282e-16, y: 0.013743981, z: -9.313193e-11}
+      rotation: {x: 0.04921719, y: 0.12433533, z: -0.54130846, w: 0.8301226}
+      scale: {x: 1, y: 0.99999994, z: 0.9999999}
+    - name: Bone.007
+      parentName: Bone.006
+      position: {x: 4.842877e-10, y: 0.009820883, z: 1.4901161e-10}
+      rotation: {x: -0.113469064, y: 0.025444161, z: 0.55097544, w: 0.8263798}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+    - name: Bone.008
+      parentName: Bone.007
+      position: {x: 2.6077032e-10, y: 0.010899601, z: 2.2351741e-10}
+      rotation: {x: 0.06655675, y: -0.014479151, z: -0.32758015, w: 0.94236505}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: Bone.009
+      parentName: Bone.008
+      position: {x: -0.0000000010058283, y: 0.012670003, z: -2.9802322e-10}
+      rotation: {x: -0.065809295, y: 0.0030630173, z: 0.2376254, w: 0.9691202}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: Bone.011
+      parentName: Bone.002
+      position: {x: -2.1316282e-16, y: 0.013743981, z: -9.313193e-11}
+      rotation: {x: 0.036069084, y: 0.02209737, z: 0.48538417, w: 0.8732771}
+      scale: {x: 0.9999999, y: 0.99999994, z: 0.99999994}
+    - name: Bone.012
+      parentName: Bone.011
+      position: {x: 3.9115547e-10, y: 0.009655712, z: -9.313225e-11}
+      rotation: {x: -0.04091704, y: 0.040325854, z: -0.46913138, w: 0.8812579}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Bone.013
+      parentName: Bone.012
+      position: {x: 5.0291415e-10, y: 0.011838615, z: -7.4505804e-11}
+      rotation: {x: 0.019301193, y: -0.004139649, z: 0.19553179, w: 0.98049873}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: Bone.014
+      parentName: Bone.013
+      position: {x: -0.0000000020675361, y: 0.009673881, z: 2.2351741e-10}
+      rotation: {x: -0.008615317, y: -0.00044321717, z: -0.010152997, w: 0.99991125}
+      scale: {x: 0.9999999, y: 1, z: 0.9999999}
+    - name: Bone.015
+      parentName: Bone.002
+      position: {x: -2.1316282e-16, y: 0.013743981, z: -9.313193e-11}
+      rotation: {x: -0.6034208, y: 0.11794395, z: 0.12690674, w: 0.7783748}
+      scale: {x: 1.0000001, y: 0.99999994, z: 0.9999999}
+    - name: Bone.016
+      parentName: Bone.015
+      position: {x: 1.4901161e-10, y: 0.010715967, z: -0.0000000016484409}
+      rotation: {x: 0.62201625, y: 0.012259556, z: -0.10518751, w: 0.77580994}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
+    - name: Bone.017
+      parentName: Bone.016
+      position: {x: 7.45058e-10, y: 0.011607547, z: -2.2351741e-10}
+      rotation: {x: -0.014288351, y: -0.0008713911, z: 0.109784946, w: 0.9938523}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Bone.018
+      parentName: Bone.017
+      position: {x: -0, y: 0.010975348, z: 0}
+      rotation: {x: -0.021563273, y: -0.0000022688853, z: 0.102751516, w: 0.99447334}
+      scale: {x: 0.9999999, y: 1, z: 0.99999994}
+    - name: Jelly Fish Mesh
+      parentName: JellyFish 1(Clone)
+      position: {x: -7.1054274e-14, y: 6, z: 0}
+      rotation: {x: -0.00000005338509, y: -0.7071067, z: 0.7071068, w: 0.000000053385097}
+      scale: {x: -2.5399997, y: -2.54, z: -2.5399997}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -161,13 +277,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
