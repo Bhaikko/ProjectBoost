@@ -8,6 +8,8 @@
         _Color("Color", COLOR) = (1, 1, 1, 1)
         _Detail("Detail", Range(0, 1)) = 0.3
         _Emission("Emission", COLOR) = (0, 0, 0, 0)
+        [MaterialToggle] _ShouldBlink("ShouldBlink", float) = 0 
+        _BlinkSpeed("BlinkSpeed", Range(0, 20)) = 100
     }
     SubShader
     {
@@ -44,6 +46,8 @@
             float4 _Color;
             float _Detail;
             float4 _Emission;
+            bool _ShouldBlink;
+            float _BlinkSpeed;
 
             float Toon(float3 normal, float3 lightDir) {
                 float NdotL = max(0.0, dot(normalize(normal), normalize(lightDir)));
@@ -61,6 +65,10 @@
                 return o;
             }
 
+            float GetBlinkingFactor() {
+                return _ShouldBlink > 0.5f ? abs(sin(_BlinkSpeed * _Time)) : 0.0f;
+            }
+
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
@@ -69,7 +77,7 @@
                 col *= Toon(i.worldNormal, _WorldSpaceLightPos0.xyz) * _Strength * _Color + _Brightness;
 
 
-                return col + _Emission;
+                return col + _Emission * GetBlinkingFactor();
             }
 
             
