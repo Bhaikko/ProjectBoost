@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3829874144639495595}
   - component: {fileID: 6515337044961777584}
   - component: {fileID: 6152963548363684599}
+  - component: {fileID: 5000514432322702688}
   m_Layer: 0
   m_Name: Mines
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8635131040293594739}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.9722, y: 2.9722, z: 2.9722}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 3339927357876533389}
   m_Father: {fileID: 0}
@@ -62,6 +63,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5000514432322702688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8635131040293594739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fdb3344b42bb2845bf7f5f8c743d92a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chainMesh: {fileID: 3537330249602584685}
+  numberOfChains: 1
+  chainRefs:
+  - {fileID: 3537330249602584685}
 --- !u!1001 &3013883696754958182
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -134,6 +151,12 @@ PrefabInstance:
 --- !u!4 &3339927357876533389 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9148f337003f95f4ebecba85f9a71bab,
+    type: 3}
+  m_PrefabInstance: {fileID: 3013883696754958182}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3537330249602584685 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1784666113194708747, guid: 9148f337003f95f4ebecba85f9a71bab,
     type: 3}
   m_PrefabInstance: {fileID: 3013883696754958182}
   m_PrefabAsset: {fileID: 0}
