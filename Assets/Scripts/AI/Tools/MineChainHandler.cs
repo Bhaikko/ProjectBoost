@@ -4,22 +4,26 @@ using UnityEditor;
 using UnityEngine;
 
 namespace ProjectBoost.AI.Tools {
-
-    [ExecuteInEditMode]
     public class MineChainHandler : MonoBehaviour
     {
         [SerializeField] GameObject chainMesh;
-        [SerializeField] [Range(1, 5)] int numberOfChains = 1;
+        
+        [SerializeField] 
+        [Range(1, 5)] 
+        [Tooltip("Number of Chains to Spawn below the Mine at runtime.")]
+        int numberOfChains = 1;
 
-        [SerializeField] List<GameObject> chainRefs = new List<GameObject>();
+        List<GameObject> chainRefs;
 
         void Start() {
-            if (EditorApplication.isPlaying) {
-                return;
+            chainRefs = new List<GameObject>();
+            chainRefs.Add(chainMesh);
+            for (int i = 1; i < numberOfChains; i++) {
+                InstantiateChain(i);
             }
         }
 
-        private void InstantiateChain()
+        private void InstantiateChain(int index)
         {
             Vector3 newPositionToAttach = chainMesh.transform.position;
             newPositionToAttach.y -= chainRefs.Count * chainRefs[chainRefs.Count - 1].GetComponent<Renderer>().bounds.size.y;
@@ -30,30 +34,11 @@ namespace ProjectBoost.AI.Tools {
             newChain.transform.localScale = new Vector3(125.0f, 125.0f, 125.0f);
 
             chainRefs.Add(newChain);
+
         }
 
         void Update() {
-            if (EditorApplication.isPlaying) {
-                return;
-            }
 
-
-            if (chainRefs.Count == numberOfChains) {
-                return;
-            }
-
-            if (chainRefs.Count == 0) {
-                chainRefs.Add(chainMesh);
-                return;
-            }
-
-            if (chainRefs.Count < numberOfChains) {
-                InstantiateChain();
-            } else {
-                DestroyImmediate(chainRefs[chainRefs.Count - 1]);
-                
-                chainRefs.RemoveAt(chainRefs.Count - 1);
-            }
         }
     }
 }
