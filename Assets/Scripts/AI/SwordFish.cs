@@ -7,6 +7,7 @@ namespace ProjectBoost.AI {
     {
         [SerializeField] float chargeSpeed = 10.0f;
         [SerializeField] float rotationSpeed = 10.0f;
+        [SerializeField] float surpriseTime = 1.0f;
         [SerializeField] float rayCastDistance = 10.0f;
 
         private bool shouldRotate = false;
@@ -18,12 +19,17 @@ namespace ProjectBoost.AI {
         private Vector3 lastPlayerPosition;
 
         private Rigidbody m_rigidbody;
+        private Animator m_animator;
+
+        private bool didReact = false;
 
         private void Start() {
             m_rigidbody = GetComponent<Rigidbody>();
 
             fieldOfView = GetComponent<FieldOfView>();
             fieldOfView.SetOwnerRef(this);
+
+            m_animator = GetComponentInChildren<Animator>();
         }
 
         public void OnSeePlayer(Vector3 lastPlayerPosition)
@@ -31,9 +37,15 @@ namespace ProjectBoost.AI {
             if (!isPlayerSpotted) {
                 isPlayerSpotted = true;
                 this.lastPlayerPosition = lastPlayerPosition;
-
-                velocityDirection = (lastPlayerPosition - transform.position).normalized;
+                StartCoroutine(AttackPlayer());
             }
+        }
+
+        private IEnumerator AttackPlayer() {
+            m_animator.SetTrigger("Attack");
+
+            yield return new WaitForSeconds(surpriseTime);
+            velocityDirection = (lastPlayerPosition - transform.position).normalized;
         }
 
         public void PlayerHidden()
@@ -71,6 +83,7 @@ namespace ProjectBoost.AI {
 
         private void Update() {
             if (isPlayerSpotted) {
+                Debug.Log("Chiring");
                 ChargeTowardsPlayer();
             }
 
