@@ -27,10 +27,13 @@ namespace ProjectBoost.AI {
 
         SharkState sharkState = SharkState.PATROLLING;
 
+        Animator m_animator = null;
+
         private void Start() {
             diverRef = FindObjectOfType<Diver>();
             pathFinder = GetComponent<PathFinder>();
             fieldOfView = GetComponent<FieldOfView>();
+            m_animator = GetComponentInChildren<Animator>();
 
             fieldOfView.SetOwnerRef(this);
 
@@ -65,12 +68,16 @@ namespace ProjectBoost.AI {
                     isPlayerSpotted = false;
                     lastSeenPosition = diverRef.GetLastHidingPosition();
                     sharkState = SharkState.INVESTIGATING;
+
+                    m_animator.SetTrigger("Detect");
                 } else {
                     sharkState = SharkState.ATTACKING;
                 }
             } else {
                 if (sharkState == SharkState.ATTACKING) {
                     sharkState = SharkState.INVESTIGATING;
+
+                    m_animator.SetTrigger("Detect");
                 } 
 
                 if (sharkState == SharkState.INVESTIGATING) {
@@ -113,6 +120,14 @@ namespace ProjectBoost.AI {
         public void PlayerHidden()
         {
             isPlayerSpotted = false;
+        }
+
+        private void OnCollisionEnter(Collision collision) {
+            Diver diver = collision.gameObject.GetComponent<Diver>();
+                m_animator.SetTrigger("Attack");
+
+            if (diver) {
+            }
         }
     }
 }
