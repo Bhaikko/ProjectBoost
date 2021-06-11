@@ -13,8 +13,11 @@ namespace ProjectBoost.AI {
     public class Shark : MonoBehaviour, IEnemy
     {
         [SerializeField] float detectRadius = 5.0f;
+        [SerializeField] float surpriseTime = 1.0f;
 
         bool isPlayerSpotted = false;
+        bool didReact = false;
+        bool bStop = false;
         Vector3 lastSeenPosition;
         Vector3 originalPosition;
 
@@ -38,6 +41,8 @@ namespace ProjectBoost.AI {
             fieldOfView.SetOwnerRef(this);
 
             originalPosition = transform.position;
+
+            StartCoroutine(ProcessBehavior());
 
         }
 
@@ -69,15 +74,12 @@ namespace ProjectBoost.AI {
                     lastSeenPosition = diverRef.GetLastHidingPosition();
                     sharkState = SharkState.INVESTIGATING;
 
-                    m_animator.SetTrigger("Detect");
                 } else {
                     sharkState = SharkState.ATTACKING;
                 }
             } else {
                 if (sharkState == SharkState.ATTACKING) {
                     sharkState = SharkState.INVESTIGATING;
-
-                    m_animator.SetTrigger("Detect");
                 } 
 
                 if (sharkState == SharkState.INVESTIGATING) {
@@ -88,45 +90,61 @@ namespace ProjectBoost.AI {
             }
         }
 
-        private void ProcessBehavior() {
-            switch (sharkState) {
-                case SharkState.ATTACKING:
-                    pathFinder.MoveToDestination(lastSeenPosition);
-                    break;
+        private IEnumerator ProcessBehavior() {
+            while (true) {
+                switch (sharkState) {
+                    case SharkState.ATTACKING:
+                        if (bStop) {
+                            yield return new WaitForSeconds(surpriseTime);
+                            bStop = false;
+                        }
+                        pathFinder.MoveToDestination(lastSeenPosition);
+                        break;
 
-                case SharkState.INVESTIGATING:
-                    pathFinder.MoveToDestination(lastSeenPosition);
-                    break;
-                case SharkState.PATROLLING:
-                    Patrol();
-                    break;
+                    case SharkState.INVESTIGATING:
+                        pathFinder.MoveToDestination(lastSeenPosition);
+                        break;
+                    case SharkState.PATROLLING:
+                        Patrol();
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
+                }
+
+                yield return null;
             }
         }
 
         private void Update() {
             DecideBehavior();
-            ProcessBehavior();
+            // ProcessBehavior();
         }
 
         public void OnSeePlayer(Vector3 lastPlayerPosition)
         {
             isPlayerSpotted = true;
             this.lastSeenPosition = lastPlayerPosition;
+
+            if (!didReact) {
+                m_animator.SetTrigger("Detect");
+                didReact = true;
+                bStop = true;
+            }
+
         }
 
         public void PlayerHidden()
         {
+            didReact = false;
             isPlayerSpotted = false;
         }
 
         private void OnCollisionEnter(Collision collision) {
             Diver diver = collision.gameObject.GetComponent<Diver>();
-                m_animator.SetTrigger("Attack");
-
+            Debug.Log(diver.name);
             if (diver) {
+                m_animator.SetTrigger("Attack");
             }
         }
     }
