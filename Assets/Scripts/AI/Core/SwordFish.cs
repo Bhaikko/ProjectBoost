@@ -10,20 +10,19 @@ namespace ProjectBoost.AI {
         [SerializeField] float surpriseTime = 1.0f;
         [SerializeField] float rayCastDistance = 10.0f;
 
-        [SerializeField] GameObject detectPrefab = null;
-
         private bool shouldRotate = false;
         private Vector3 targetRotation;
         private Vector3 velocityDirection;
 
+        // Components
         private FieldOfView fieldOfView = null;
+        private Detection detection = null;
+
         private bool isPlayerSpotted = false;
         private Vector3 lastPlayerPosition;
 
         private Rigidbody m_rigidbody;
         private Animator m_animator;
-        private Animation detectAnimation;
-
 
         private bool didReact = false;
 
@@ -33,14 +32,9 @@ namespace ProjectBoost.AI {
             fieldOfView = GetComponent<FieldOfView>();
             fieldOfView.SetOwnerRef(this);
 
+            detection = GetComponentInChildren<Detection>();
+
             m_animator = GetComponentInChildren<Animator>();
-
-            if (!detectPrefab) {
-                Debug.Log("No Detection Prefab Reference Found.");
-                return;
-            }
-
-            detectAnimation = detectPrefab.GetComponent<Animation>();
         }
 
         public void OnSeePlayer(Vector3 lastPlayerPosition)
@@ -54,7 +48,7 @@ namespace ProjectBoost.AI {
 
         private IEnumerator AttackPlayer() {
             m_animator.SetTrigger("Attack");
-            detectAnimation.Play();
+            detection.PlayAnimation();
             yield return new WaitForSeconds(surpriseTime);
             velocityDirection = (lastPlayerPosition - transform.position).normalized;
         }
