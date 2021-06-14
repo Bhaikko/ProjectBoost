@@ -392,12 +392,23 @@ PrefabInstance:
       propertyPath: playerMask.m_Bits
       value: 256
       objectReference: {fileID: 0}
+    - target: {fileID: 4362152816831614559, guid: 887e673ca3fb8214faf2f36b1dc1027f,
+        type: 3}
+      propertyPath: m_Drag
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6148919345640198479, guid: 887e673ca3fb8214faf2f36b1dc1027f,
+        type: 3}
+      propertyPath: chargeSpeed
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 6148919345640198479, guid: 887e673ca3fb8214faf2f36b1dc1027f,
         type: 3}
       propertyPath: rayCastDistance
       value: 100
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3753174666472371876, guid: 887e673ca3fb8214faf2f36b1dc1027f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 887e673ca3fb8214faf2f36b1dc1027f, type: 3}
 --- !u!1001 &760922349
 PrefabInstance:

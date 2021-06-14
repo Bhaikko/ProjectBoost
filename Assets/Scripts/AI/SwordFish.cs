@@ -10,6 +10,8 @@ namespace ProjectBoost.AI {
         [SerializeField] float surpriseTime = 1.0f;
         [SerializeField] float rayCastDistance = 10.0f;
 
+        [SerializeField] GameObject detectPrefab = null;
+
         private bool shouldRotate = false;
         private Vector3 targetRotation;
         private Vector3 velocityDirection;
@@ -20,6 +22,8 @@ namespace ProjectBoost.AI {
 
         private Rigidbody m_rigidbody;
         private Animator m_animator;
+        private Animation detectAnimation;
+
 
         private bool didReact = false;
 
@@ -30,6 +34,13 @@ namespace ProjectBoost.AI {
             fieldOfView.SetOwnerRef(this);
 
             m_animator = GetComponentInChildren<Animator>();
+
+            if (!detectPrefab) {
+                Debug.Log("No Detection Prefab Reference Found.");
+                return;
+            }
+
+            detectAnimation = detectPrefab.GetComponent<Animation>();
         }
 
         public void OnSeePlayer(Vector3 lastPlayerPosition)
@@ -43,7 +54,7 @@ namespace ProjectBoost.AI {
 
         private IEnumerator AttackPlayer() {
             m_animator.SetTrigger("Attack");
-
+            detectAnimation.Play();
             yield return new WaitForSeconds(surpriseTime);
             velocityDirection = (lastPlayerPosition - transform.position).normalized;
         }
@@ -55,7 +66,7 @@ namespace ProjectBoost.AI {
 
         private void ChargeTowardsPlayer()
         {
-            m_rigidbody.velocity += new Vector3(velocityDirection.x * Time.deltaTime * chargeSpeed, 0.0f, 0.0f);
+            m_rigidbody.velocity += new Vector3(velocityDirection.x, 0.0f, 0.0f) * Time.deltaTime * chargeSpeed;
         }
 
         private void TurnAround(Vector3 target) {
@@ -83,7 +94,6 @@ namespace ProjectBoost.AI {
 
         private void Update() {
             if (isPlayerSpotted) {
-                Debug.Log("Chiring");
                 ChargeTowardsPlayer();
             }
 
