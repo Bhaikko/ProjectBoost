@@ -12,7 +12,7 @@ namespace ProjectBoost.AI {
 
         private bool shouldRotate = false;
         private Vector3 targetRotation;
-        private Vector3 velocityDirection;
+        private float velocityDirection;
 
         // Components
         private FieldOfView fieldOfView = null;
@@ -50,7 +50,11 @@ namespace ProjectBoost.AI {
             m_animator.SetTrigger("Attack");
             detection.PlayAnimation();
             yield return new WaitForSeconds(surpriseTime);
-            velocityDirection = (lastPlayerPosition - transform.position).normalized;
+            velocityDirection = (lastPlayerPosition - transform.position).normalized.x;
+
+            velocityDirection = velocityDirection > 0.0f ? 1.0f : -1.0f;
+
+            Debug.Log(velocityDirection);
         }
 
         public void PlayerHidden()
@@ -60,7 +64,8 @@ namespace ProjectBoost.AI {
 
         private void ChargeTowardsPlayer()
         {
-            m_rigidbody.velocity += new Vector3(velocityDirection.x, 0.0f, 0.0f) * Time.deltaTime * chargeSpeed;
+            m_rigidbody.velocity += new Vector3(velocityDirection, 0.0f, 0.0f) * Time.deltaTime * chargeSpeed;
+            
         }
 
         private void TurnAround(Vector3 target) {
@@ -72,8 +77,12 @@ namespace ProjectBoost.AI {
                 Time.deltaTime * rotationSpeed
             );
 
+            detection.Flip();
+            m_animator.SetTrigger("StopAttack");
+
             if (Vector3.Angle(target, transform.forward) <= Mathf.Epsilon) {
                 shouldRotate = false;
+
             }
         }
 

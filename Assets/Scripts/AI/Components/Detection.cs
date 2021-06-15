@@ -10,7 +10,6 @@ namespace ProjectBoost.AI {
         Animation animationToPlay = null;
         AudioSource audioSource = null;
 
-
         private void Start() {
             audioSource = GetComponent<AudioSource>();
 
@@ -22,6 +21,10 @@ namespace ProjectBoost.AI {
         {
             animationToPlay.Play();
             audioSource.PlayOneShot(detectionSound);
+        }
+
+        public void Flip() {
+            transform.rotation *= new Quaternion(0.0f, 1.0f, 0.0f, 0.0f);
         }
      
     }
