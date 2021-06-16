@@ -19,7 +19,6 @@ namespace ProjectBoost.AI {
         private Detection detection = null;
 
         private bool isPlayerSpotted = false;
-        private Vector3 lastPlayerPosition;
 
         private Rigidbody m_rigidbody;
         private Animator m_animator;
@@ -39,20 +38,22 @@ namespace ProjectBoost.AI {
 
         public void OnSeePlayer(Vector3 lastPlayerPosition)
         {
-            if (!isPlayerSpotted) {
-                isPlayerSpotted = true;
-                this.lastPlayerPosition = lastPlayerPosition;
-                StartCoroutine(AttackPlayer());
+            if (!isPlayerSpotted && !didReact) {
+                StartCoroutine(AttackPlayer(lastPlayerPosition));
+
+                didReact = true;
             }
         }
 
-        private IEnumerator AttackPlayer() {
+        private IEnumerator AttackPlayer(Vector3 lastPlayerPosition) {
             m_animator.SetTrigger("Attack");
             detection.PlayAnimation();
             yield return new WaitForSeconds(surpriseTime);
-            velocityDirection = (lastPlayerPosition - transform.position).normalized.x;
 
+            velocityDirection = (lastPlayerPosition - transform.position).normalized.x;
             velocityDirection = velocityDirection > 0.0f ? 1.0f : -1.0f;
+
+            isPlayerSpotted = true;
 
             Debug.Log(velocityDirection);
         }
@@ -60,6 +61,7 @@ namespace ProjectBoost.AI {
         public void PlayerHidden()
         {
             // isPlayerSpotted = false;
+            didReact = false;
         }
 
         private void ChargeTowardsPlayer()
@@ -77,18 +79,18 @@ namespace ProjectBoost.AI {
                 Time.deltaTime * rotationSpeed
             );
 
-            detection.Flip();
-            m_animator.SetTrigger("StopAttack");
-
             if (Vector3.Angle(target, transform.forward) <= Mathf.Epsilon) {
                 shouldRotate = false;
-
             }
         }
 
         private void OnCollisionEnter(Collision collider) {
             isPlayerSpotted = false;
+            didReact = false;
             m_rigidbody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+
+            detection.Flip();
+            m_animator.SetTrigger("StopAttack");
 
             shouldRotate = true;
             targetRotation = transform.position - new Vector3(transform.forward.x, 0.0f, 0.0f);
