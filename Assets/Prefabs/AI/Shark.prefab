@@ -32,6 +32,7 @@ GameObject:
   - component: {fileID: 6716503375617811934}
   - component: {fileID: 6093761059503585658}
   - component: {fileID: 5841810423154532634}
+  - component: {fileID: 5427829904429128429}
   m_Layer: 0
   m_Name: Shark
   m_TagString: Untagged
@@ -46,7 +47,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8507901714977212902}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
@@ -54,7 +55,7 @@ Transform:
   - {fileID: 8907702245866649225}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!65 &8775787885812394741
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -115,6 +116,23 @@ MonoBehaviour:
   movementSpeed: 10
   maxRayCastDistanceForPathfinding: 10
   offsetWhileNavigating: 2
+--- !u!114 &5427829904429128429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8507901714977212902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9971b0b9deabdb47a0a2019cd600d77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 5
+  viewAngle: 57
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &2701735525237941232
 PrefabInstance:
   m_ObjectHideFlags: 0

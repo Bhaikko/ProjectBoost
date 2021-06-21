@@ -54,13 +54,10 @@ namespace ProjectBoost.AI {
             velocityDirection = velocityDirection > 0.0f ? 1.0f : -1.0f;
 
             isPlayerSpotted = true;
-
-            Debug.Log(velocityDirection);
         }
 
         public void PlayerHidden()
         {
-            // isPlayerSpotted = false;
             didReact = false;
         }
 

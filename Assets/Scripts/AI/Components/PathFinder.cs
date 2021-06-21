@@ -14,11 +14,16 @@ namespace ProjectBoost.AI {
         private void RotateTowards(Vector3 target) {
             target -= transform.position;
 
+            if (Vector3.Angle(target, transform.forward) <= Mathf.Epsilon) {
+                return;
+            }
+
             transform.localRotation = Quaternion.Slerp(
                 transform.rotation,
                 Quaternion.LookRotation(target.normalized), 
                 Time.deltaTime * rotationSpeed
             );
+
         }
 
         public void MoveToDestination(Vector3 destination)
@@ -27,10 +32,10 @@ namespace ProjectBoost.AI {
             bool isPathOcculuded = Physics.Raycast(
                 transform.position,
                 new Vector3(transform.forward.x, 0.0f, 0.0f),
-                // transform.forward,
                 out hit,
                 maxRayCastDistanceForPathfinding
             );
+
 
             if (
                 isPathOcculuded &&
@@ -45,6 +50,7 @@ namespace ProjectBoost.AI {
                         hit.collider.transform.position + 
                         obstacleDirection * target.localScale.y / 2.0f +
                         obstacleDirection * offsetWhileNavigating;
+
                 }
             }
 
@@ -54,9 +60,8 @@ namespace ProjectBoost.AI {
                 movementSpeed * Time.deltaTime
             );
 
-            Debug.DrawLine(transform.position, destination, Color.red);
-
             RotateTowards(destination);
+            
         }
     }
 }

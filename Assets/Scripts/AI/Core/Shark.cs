@@ -31,12 +31,14 @@ namespace ProjectBoost.AI {
         SharkState sharkState = SharkState.PATROLLING;
 
         Animator m_animator = null;
+        Detection detection = null;
 
         private void Start() {
             diverRef = FindObjectOfType<Diver>();
             pathFinder = GetComponent<PathFinder>();
             fieldOfView = GetComponent<FieldOfView>();
             m_animator = GetComponentInChildren<Animator>();
+            detection = GetComponentInChildren<Detection>();
 
             fieldOfView.SetOwnerRef(this);
 
@@ -44,10 +46,10 @@ namespace ProjectBoost.AI {
 
             StartCoroutine(ProcessBehavior());
 
-        }
+            // Initial Check to Flip
+            CheckDetectionBillboardFlip(transform.position);
 
-        private void OnDrawGizmosSelected() {
-            Gizmos.DrawWireSphere(transform.position, detectRadius);
+
         }
 
         private float CalculateDistanceFromPlayer() {
@@ -60,14 +62,26 @@ namespace ProjectBoost.AI {
             pathFinder.MoveToDestination(currentPatrolPoint);
 
             if ((currentPatrolPoint - transform.position).magnitude <= Mathf.Epsilon) {
+                int lastPositionIndex = currentPatrolIndex;
                 currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Count;
+                
+                CheckDetectionBillboardFlip(patrolPoints[lastPositionIndex].transform.position);
             }
 
         }
 
-        private void DecideBehavior() {
-            // Debug.Log(diverRef.IsHiding());
+        private void CheckDetectionBillboardFlip(Vector3 lastPosition) {
+            if (
+                Vector3.Angle(
+                    transform.forward, 
+                    patrolPoints[currentPatrolIndex].transform.position - lastPosition
+                ) >= 90.0f
+            ) {
+                detection.Flip();
+            }
+        }
 
+        private void DecideBehavior() {
             if (isPlayerSpotted) {
                 if (diverRef.IsHiding()) {
                     isPlayerSpotted = false;
@@ -118,7 +132,7 @@ namespace ProjectBoost.AI {
 
         private void Update() {
             DecideBehavior();
-            // ProcessBehavior();
+            ProcessBehavior();
         }
 
         public void OnSeePlayer(Vector3 lastPlayerPosition)
@@ -128,6 +142,7 @@ namespace ProjectBoost.AI {
 
             if (!didReact) {
                 m_animator.SetTrigger("Detect");
+                detection.PlayAnimation();
                 didReact = true;
                 bStop = true;
             }
@@ -142,10 +157,11 @@ namespace ProjectBoost.AI {
 
         private void OnCollisionEnter(Collision collision) {
             Diver diver = collision.gameObject.GetComponent<Diver>();
-            Debug.Log(diver.name);
             if (diver) {
                 m_animator.SetTrigger("Attack");
             }
         }
     }
 }
+
+// TODO: To add stopped Patrolling Between Waypoints

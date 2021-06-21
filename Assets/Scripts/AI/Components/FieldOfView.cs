@@ -64,7 +64,7 @@ namespace ProjectBoost.AI {
                 Vector3 directionToTarget = (target.position - transform.position).normalized;
 
                 if (Vector3.Angle(transform.forward, directionToTarget) < viewAngle / 2) {
-                    // Debug.DrawRay(transform.position, directionToTarget * distanceToTarget, Color.red);
+                    Debug.DrawRay(transform.position, directionToTarget * distanceToTarget, Color.red);
                     RaycastHit hit;
                     if (Physics.Raycast(transform.position, directionToTarget, out hit, distanceToTarget)) {
                         if (CheckIsDiver(hit.transform)) {
