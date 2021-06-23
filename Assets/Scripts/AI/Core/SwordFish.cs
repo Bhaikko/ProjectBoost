@@ -8,7 +8,6 @@ namespace ProjectBoost.AI {
         [SerializeField] float chargeSpeed = 10.0f;
         [SerializeField] float rotationSpeed = 10.0f;
         [SerializeField] float surpriseTime = 1.0f;
-        [SerializeField] float rayCastDistance = 10.0f;
 
         private bool shouldRotate = false;
         private Vector3 targetRotation;

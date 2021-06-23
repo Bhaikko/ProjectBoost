@@ -12,7 +12,6 @@ namespace ProjectBoost.AI {
 
     public class Shark : MonoBehaviour, IEnemy
     {
-        [SerializeField] float detectRadius = 5.0f;
         [SerializeField] float surpriseTime = 1.0f;
 
         bool isPlayerSpotted = false;
@@ -62,6 +61,7 @@ namespace ProjectBoost.AI {
             pathFinder.MoveToDestination(currentPatrolPoint);
 
             if ((currentPatrolPoint - transform.position).magnitude <= Mathf.Epsilon) {
+                bStop = true;
                 int lastPositionIndex = currentPatrolIndex;
                 currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Count;
                 
@@ -99,6 +99,8 @@ namespace ProjectBoost.AI {
                 if (sharkState == SharkState.INVESTIGATING) {
                     if (Vector3.Distance(transform.position, lastSeenPosition) <= Mathf.Epsilon) {
                         sharkState = SharkState.PATROLLING;
+
+                        bStop = true;
                     }
                 }
             }
@@ -119,6 +121,10 @@ namespace ProjectBoost.AI {
                         pathFinder.MoveToDestination(lastSeenPosition);
                         break;
                     case SharkState.PATROLLING:
+                        if (bStop) {
+                            yield return new WaitForSeconds(surpriseTime);
+                            bStop = false;
+                        }
                         Patrol();
                         break;
 
@@ -132,7 +138,6 @@ namespace ProjectBoost.AI {
 
         private void Update() {
             DecideBehavior();
-            ProcessBehavior();
         }
 
         public void OnSeePlayer(Vector3 lastPlayerPosition)
@@ -161,7 +166,7 @@ namespace ProjectBoost.AI {
                 m_animator.SetTrigger("Attack");
             }
         }
-    }
+    } 
 }
 
 // TODO: To add stopped Patrolling Between Waypoints

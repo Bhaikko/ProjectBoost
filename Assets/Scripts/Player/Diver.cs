@@ -13,7 +13,7 @@ namespace ProjectBoost.Player {
         [SerializeField] float rotateSpeed = 1.0f;
 
         [SerializeField] AudioClip thrustingSound = null;
-        [SerializeField] AudioClip deathSound = null;
+        // [SerializeField] AudioClip deathSound = null;
         [SerializeField] AudioClip newLevelSound = null;
 
         [SerializeField] ParticleSystem thrustParticleSystem = null;
