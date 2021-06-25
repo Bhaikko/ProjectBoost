@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 585542156385338931}
   - component: {fileID: 8797997938950173867}
   - component: {fileID: 948464976}
+  - component: {fileID: 6859894459892505138}
   m_Layer: 0
   m_Name: Tentacle
   m_TagString: Untagged
@@ -60,8 +61,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {x: 0, y: 10, z: 0}
   period: 10
-  attachTransform: {fileID: 7538020035346687234}
+  bone: {fileID: 0}
   movementFactor: 0
+--- !u!114 &6859894459892505138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971099712333414560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f896dbe0dde0743a306a85ad6f051e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bone: {fileID: 7538020035346687234}
 --- !u!1001 &401465008105623509
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 4362152816831614559}
   - component: {fileID: 6148919345640198479}
   - component: {fileID: 3902641166502264176}
+  - component: {fileID: 8495673969750410660}
   m_Layer: 0
   m_Name: SwordFish
   m_TagString: Untagged
@@ -111,7 +112,6 @@ MonoBehaviour:
   chargeSpeed: 50
   rotationSpeed: 10
   surpriseTime: 1
-  rayCastDistance: 10
 --- !u!114 &3902641166502264176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +129,19 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &8495673969750410660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813972229600164143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f896dbe0dde0743a306a85ad6f051e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bone: {fileID: 1956182949358027967}
 --- !u!95 &9178739238206734538
 Animator:
   serializedVersion: 3
@@ -331,6 +344,12 @@ GameObject:
 --- !u!4 &8612481945121270825 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b5878d2108e0c4a4abfa154b6eae314d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8074698838009859010}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1956182949358027967 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7722219570211000189, guid: b5878d2108e0c4a4abfa154b6eae314d,
     type: 3}
   m_PrefabInstance: {fileID: 8074698838009859010}
   m_PrefabAsset: {fileID: 0}

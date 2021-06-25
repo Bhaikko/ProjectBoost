@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using ProjectBoost.Player;
 using UnityEngine;
 
+using ProjectBoost.AI.Components;
+
 
 namespace ProjectBoost.AI {
     // Responsible for moving Gameobject
@@ -12,18 +14,20 @@ namespace ProjectBoost.AI {
         [SerializeField] Vector3 movement = new Vector3();
         [SerializeField] float period = 2f;
 
-        [SerializeField] GameObject attachTransform = null;
+        [SerializeField] GameObject bone = null;
 
         [Range(0, 1)]
         [SerializeField] float movementFactor = 0.0f;
 
         Animator animator = null;
+        KillAttach killAttach = null;
 
         Vector3 startingPos = new Vector3();
 
         void Start()
         {
             animator = GetComponentInChildren<Animator>();
+            killAttach = GetComponent<KillAttach>();
 
             startingPos = transform.position;
         }
@@ -51,9 +55,7 @@ namespace ProjectBoost.AI {
             Diver diver = collision.gameObject.GetComponent<Diver>();
             if (diver) {
                 animator.SetTrigger("Attack");
-                // diver.SetDeathPosition(transform.TransformPoint(attachTransform.position));
-                // diver.SetDeathPosition(attachTransform.position);
-                diver.SetKiller(ref attachTransform);
+                killAttach.AttachBoneToPlayer();
             }
         }
     }

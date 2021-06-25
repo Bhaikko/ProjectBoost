@@ -51,6 +51,9 @@ namespace ProjectBoost.Player {
                 Thrust();
                 Rotate();
             } else {
+                if (killer) {
+                    return;
+                }
                 transform.position = killer.transform.position;
             }
         }
@@ -158,6 +161,8 @@ namespace ProjectBoost.Player {
 
         public void SetKiller(ref GameObject killer) {
             this.killer = killer;
+
+            GetComponent<CapsuleCollider>().enabled = false;
         }
 
     } 

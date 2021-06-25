@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ProjectBoost.AI.Components;
+using ProjectBoost.Player;
 using UnityEngine;
 
 namespace ProjectBoost.AI {
@@ -21,6 +23,7 @@ namespace ProjectBoost.AI {
 
         private Rigidbody m_rigidbody;
         private Animator m_animator;
+        private KillAttach killAttach;
 
         private bool didReact = false;
 
@@ -31,6 +34,7 @@ namespace ProjectBoost.AI {
             fieldOfView.SetOwnerRef(this);
 
             detection = GetComponentInChildren<Detection>();
+            killAttach = GetComponent<KillAttach>();
 
             m_animator = GetComponentInChildren<Animator>();
         }
@@ -81,6 +85,11 @@ namespace ProjectBoost.AI {
         }
 
         private void OnCollisionEnter(Collision collider) {
+            if (collider.gameObject.GetComponent<Diver>()) {
+                killAttach.AttachBoneToPlayer();
+                return;
+            }
+            
             isPlayerSpotted = false;
             didReact = false;
             m_rigidbody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
