@@ -26,6 +26,8 @@ namespace ProjectBoost.Player {
 
         private GameMode gameMode;
         private Vector3 lastHidingPosition = Vector3.negativeInfinity;
+        private Vector3 deathAttachPosition;
+        private GameObject killer;
 
         private bool isDead = false;
         private bool isHiding = false;
@@ -48,6 +50,8 @@ namespace ProjectBoost.Player {
             if (!isDead) { 
                 Thrust();
                 Rotate();
+            } else {
+                transform.position = killer.transform.position;
             }
         }
 
@@ -89,7 +93,9 @@ namespace ProjectBoost.Player {
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (isDead) { return; }
+            if (isDead) { 
+                return; 
+            }
 
             LandingPad landingPad = collision.gameObject.GetComponent<LandingPad>();
             if (landingPad) {
@@ -125,12 +131,12 @@ namespace ProjectBoost.Player {
 
         IEnumerator HandleDeath()
         {
+            isDead = true;
             audioSource.Stop();
             // audioSource.PlayOneShot(deathSound);
             thrustParticleSystem.Stop();
             deathParticleSystem.Play();
-            isDead = true;
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(2.5f);
             // SceneManager.LoadScene(0);
 
             gameMode.HandleDeath();
@@ -149,6 +155,10 @@ namespace ProjectBoost.Player {
 
         public bool IsHiding() { return isHiding; }
         public Vector3 GetLastHidingPosition() { return lastHidingPosition; }
+
+        public void SetKiller(ref GameObject killer) {
+            this.killer = killer;
+        }
 
     } 
 }

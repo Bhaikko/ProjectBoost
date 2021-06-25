@@ -168,5 +168,3 @@ namespace ProjectBoost.AI {
         }
     } 
 }
-
-// TODO: To add stopped Patrolling Between Waypoints

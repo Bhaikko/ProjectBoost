@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 971099712333414560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -54.23, y: 19.55, z: -6.2541466}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.063813, y: 3.8397653, z: 1.6422566}
   m_Children:
   - {fileID: 151137980426217534}
@@ -44,8 +44,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 4, z: 1}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!114 &948464976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {x: 0, y: 10, z: 0}
   period: 10
+  attachTransform: {fileID: 7538020035346687234}
   movementFactor: 0
 --- !u!1001 &401465008105623509
 PrefabInstance:
@@ -143,11 +144,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tentacle
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 62bbd1dc362a1c346a746a773b0e0687,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1387cec10137ff6428cf1b909583fdcb, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62bbd1dc362a1c346a746a773b0e0687, type: 3}
 --- !u!4 &151137980426217534 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 62bbd1dc362a1c346a746a773b0e0687,
+    type: 3}
+  m_PrefabInstance: {fileID: 401465008105623509}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7538020035346687234 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7858261300248275671, guid: 62bbd1dc362a1c346a746a773b0e0687,
     type: 3}
   m_PrefabInstance: {fileID: 401465008105623509}
   m_PrefabAsset: {fileID: 0}
