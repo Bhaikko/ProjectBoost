@@ -61,7 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {x: 0, y: 10, z: 0}
   period: 10
-  bone: {fileID: 0}
+  bone: {fileID: 7538020035346687234}
   movementFactor: 0
 --- !u!114 &6859894459892505138
 MonoBehaviour:

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ProjectBoost.AI.Components;
 using ProjectBoost.Player;
 using UnityEngine;
 
@@ -31,6 +32,7 @@ namespace ProjectBoost.AI {
 
         Animator m_animator = null;
         Detection detection = null;
+        KillAttach killAttach = null;
 
         private void Start() {
             diverRef = FindObjectOfType<Diver>();
@@ -38,6 +40,7 @@ namespace ProjectBoost.AI {
             fieldOfView = GetComponent<FieldOfView>();
             m_animator = GetComponentInChildren<Animator>();
             detection = GetComponentInChildren<Detection>();
+            killAttach = GetComponent<KillAttach>();
 
             fieldOfView.SetOwnerRef(this);
 
@@ -56,6 +59,10 @@ namespace ProjectBoost.AI {
         }
         
         private void Patrol() {
+            if (patrolPoints.Count == 0) {
+                return;
+            }
+
             Vector3 currentPatrolPoint = patrolPoints[currentPatrolIndex].transform.position;
 
             pathFinder.MoveToDestination(currentPatrolPoint);
@@ -163,6 +170,7 @@ namespace ProjectBoost.AI {
         private void OnCollisionEnter(Collision collision) {
             Diver diver = collision.gameObject.GetComponent<Diver>();
             if (diver) {
+                killAttach.AttachBoneToPlayer();
                 m_animator.SetTrigger("Attack");
             }
         }

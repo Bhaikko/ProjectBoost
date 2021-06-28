@@ -14,8 +14,6 @@ namespace ProjectBoost.AI {
         [SerializeField] Vector3 movement = new Vector3();
         [SerializeField] float period = 2f;
 
-        [SerializeField] GameObject bone = null;
-
         [Range(0, 1)]
         [SerializeField] float movementFactor = 0.0f;
 
@@ -40,7 +38,7 @@ namespace ProjectBoost.AI {
 
             float cycles = 1.0f / period;
             const float tau = Mathf.PI * 2;
-            float sinValue = Mathf.Sin(cycles * tau * Time.time);       // x(t) = Asin(wt) = Asin(2 * pie * v * t);
+            float sinValue = Mathf.Sin(cycles * tau * Time.time);
 
             movementFactor = sinValue * 0.5f + 0.5f;        
             Vector3 offset = movement * movementFactor;

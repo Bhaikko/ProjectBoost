@@ -27,6 +27,8 @@ namespace ProjectBoost.AI {
 
         private bool didReact = false;
 
+        private bool bWasDiver = false;
+
         private void Start() {
             m_rigidbody = GetComponent<Rigidbody>();
 
@@ -85,8 +87,13 @@ namespace ProjectBoost.AI {
         }
 
         private void OnCollisionEnter(Collision collider) {
+            if (bWasDiver) {
+                return;
+            }
+
             if (collider.gameObject.GetComponent<Diver>()) {
                 killAttach.AttachBoneToPlayer();
+                bWasDiver = true;
                 return;
             }
             

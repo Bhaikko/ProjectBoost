@@ -51,10 +51,8 @@ namespace ProjectBoost.Player {
                 Thrust();
                 Rotate();
             } else {
-                if (killer) {
-                    return;
-                }
                 transform.position = killer.transform.position;
+                transform.rotation = killer.transform.rotation;
             }
         }
 
@@ -64,7 +62,6 @@ namespace ProjectBoost.Player {
             myRigidbody.angularVelocity = Vector3.zero;
 
             diverAnimator.SetFloat("Horizontal", Input.GetAxis("Rotate"));
-            // transform.Rotate(-1.0f * Mathf.Ceil(Input.GetAxis("Rotate")) * Vector3.forward, rotateSpeed * Time.deltaTime);
             
             if (Input.GetKey(KeyCode.A)) {
                 transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime);
@@ -162,7 +159,7 @@ namespace ProjectBoost.Player {
         public void SetKiller(ref GameObject killer) {
             this.killer = killer;
 
-            GetComponent<CapsuleCollider>().enabled = false;
+            // GetComponent<CapsuleCollider>().enabled = false;
         }
 
     } 
