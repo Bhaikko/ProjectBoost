@@ -52,7 +52,7 @@
             float Toon(float3 normal, float3 lightDir) {
                 float NdotL = max(0.0, dot(normalize(normal), normalize(lightDir)));
 
-                return floor(NdotL / _Detail);
+                return NdotL / _Detail;
             }
 
             v2f vert (appdata v)
@@ -74,7 +74,13 @@
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-                col *= Toon(i.worldNormal, _WorldSpaceLightPos0.xyz) * _Strength * _Color + _Brightness;
+                float toonWeight = Toon(i.worldNormal, _WorldSpaceLightPos0.xyz);
+
+                if (toonWeight - floor(toonWeight) < 0.05f) {
+                    return float4(0.0f, 0.0f, 0.0f, 0.0f);
+                }
+
+                col *= floor(toonWeight) * _Strength * _Color + _Brightness;
 
 
                 return col + _Emission * GetBlinkingFactor();

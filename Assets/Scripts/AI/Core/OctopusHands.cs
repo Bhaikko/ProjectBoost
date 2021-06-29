@@ -13,12 +13,13 @@ namespace ProjectBoost.AI {
     {
         [SerializeField] Vector3 movement = new Vector3();
         [SerializeField] float period = 2f;
-
-        [Range(0, 1)]
-        [SerializeField] float movementFactor = 0.0f;
+        [SerializeField] float moveSpeed = 1.0f;
 
         Animator animator = null;
         KillAttach killAttach = null;
+
+        float movementFactor = 0.0f;
+        bool bCaughtPlayer = false;
 
         Vector3 startingPos = new Vector3();
 
@@ -36,13 +37,18 @@ namespace ProjectBoost.AI {
                 return;
             }
 
-            float cycles = 1.0f / period;
-            const float tau = Mathf.PI * 2;
-            float sinValue = Mathf.Sin(cycles * tau * Time.time);
+            if (!bCaughtPlayer) {
+                float cycles = 1.0f / period;
+                const float tau = Mathf.PI * 2;
+                float sinValue = Mathf.Sin(cycles * tau * Time.time);
+                movementFactor = sinValue * 0.5f + 0.5f;        
+                Vector3 offset = movement * movementFactor;
+                transform.position = startingPos + offset;
 
-            movementFactor = sinValue * 0.5f + 0.5f;        
-            Vector3 offset = movement * movementFactor;
-            transform.position = startingPos + offset;
+            } else {
+                transform.position += -GetMovementDirection() * moveSpeed * Time.deltaTime;
+            }
+
         }
 
         public Vector3 GetMovementDirection() {
@@ -52,6 +58,7 @@ namespace ProjectBoost.AI {
         private void OnCollisionEnter(Collision collision) {
             Diver diver = collision.gameObject.GetComponent<Diver>();
             if (diver) {
+                bCaughtPlayer = true;
                 animator.SetTrigger("Attack");
                 killAttach.AttachBoneToPlayer();
             }
