@@ -51,8 +51,10 @@ namespace ProjectBoost.Player {
                 Thrust();
                 Rotate();
             } else {
-                transform.position = killer.transform.position;
-                transform.rotation = killer.transform.rotation;
+                if (killer) {
+                    transform.position = killer.transform.position;
+                    transform.rotation = killer.transform.rotation;
+                }
             }
         }
 
