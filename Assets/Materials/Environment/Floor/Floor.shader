@@ -5,6 +5,7 @@
         _MainTex ("Albedo", 2D) = "white" {}
         _NormalMap ("Normal Map", 2D) = "white" {}
         _HeightMap ("Height Map", 2D) = "white" {}
+        _AlphaMap ("Alpha Map", 2D) = "white" {}
 
         _HeightMapScale ("Height Map Influence", float) = 2.0
         _Detail ("Toon shader Detail", Range(0, 1)) = 0.3   
@@ -14,8 +15,9 @@
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Transparent" }
         LOD 100
+        Cull Off
 
         Pass
         {
@@ -39,6 +41,7 @@
 
             sampler2D _MainTex;
             sampler2D _HeightMap;
+            sampler2D _AlphaMap;
             float4 _MainTex_ST;
             sampler2D _NormalMap;
             float _HeightMapScale;
@@ -68,6 +71,12 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
+                fixed4 alphaValue = tex2D(_AlphaMap, i.uv);
+
+                if (alphaValue.r < 0.3f) {
+                    discard;
+                }
+
                 fixed4 col = tex2D(_MainTex, i.uv);
 
                 float3 normal = UnityObjectToWorldNormal(UnpackNormal (tex2D (_NormalMap, i.uv)));
