@@ -31,6 +31,9 @@ namespace ProjectBoost.Player {
 
         private bool isDead = false;
         private bool isHiding = false;
+        private bool isLevelFinished = false;
+
+        private Vector3 levelEndPosition;
 
         // Start is called before the first frame update
         void Start()
@@ -47,6 +50,11 @@ namespace ProjectBoost.Player {
         // Update is called once per frame
         void Update()
         {
+            if (isLevelFinished) {
+                TranslateToLevelEnd();
+                return;
+            }
+
             if (!isDead) { 
                 Thrust();
                 Rotate();
@@ -54,8 +62,18 @@ namespace ProjectBoost.Player {
                 if (killer) {
                     transform.position = killer.transform.position;
                     transform.rotation = killer.transform.rotation;
-                }
+                } 
             }
+        }
+
+        public void FinishLevel(Vector3 levelEndPosition) {
+            isLevelFinished = true;
+            this.levelEndPosition = levelEndPosition;
+        }
+
+        private void TranslateToLevelEnd() {
+            Debug.Log("going to end");
+            transform.position = Vector3.MoveTowards(transform.position, levelEndPosition, Time.deltaTime * thrustSpeed);
         }
 
         private void Rotate()

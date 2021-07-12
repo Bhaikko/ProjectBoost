@@ -41,5 +41,9 @@ namespace ProjectBoost.Environment
                 angleRotated = 0.0f;
             }
         }
+
+        public void CloseDoor() {
+            bShouldClose = true;
+        }
     }    
 }
