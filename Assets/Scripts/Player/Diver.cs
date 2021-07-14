@@ -72,7 +72,6 @@ namespace ProjectBoost.Player {
         }
 
         private void TranslateToLevelEnd() {
-            Debug.Log("going to end");
             transform.position = Vector3.MoveTowards(transform.position, levelEndPosition, Time.deltaTime * thrustSpeed);
         }
 
