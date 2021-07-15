@@ -26,5 +26,5 @@ Material:
     m_Floats:
     - _EdgeThickness: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0.09411765}
+    - _Color: {r: 0.617257, g: 0.9150943, b: 0.9038916, a: 0.09411765}
     - _EdgeColor: {r: 0.8207547, g: 0.7614121, b: 0.66202384, a: 1}
