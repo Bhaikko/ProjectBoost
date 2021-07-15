@@ -11,7 +11,7 @@ namespace ProjectBoost.UI
 
         private Material bodyMaterial;
 
-        float faderValue;
+        [SerializeField] [Range(-0.5f, 1.0f)] float faderValue;
         [SerializeField] bool shouldFadeIn = false;
         [SerializeField] bool shouldFadeOut = false;
 
@@ -34,8 +34,8 @@ namespace ProjectBoost.UI
 
             if (shouldFadeOut) {
                 faderValue -= fadingSpeed * Time.deltaTime;
-                if (faderValue < 0.0f) {
-                    faderValue = 0.0f;
+                if (faderValue < -0.5f) {
+                    faderValue = -0.5f;
                     shouldFadeOut = false;
                 }
             }

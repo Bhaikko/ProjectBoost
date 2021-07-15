@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Grass
+  m_Name: M_Grass
   m_Shader: {fileID: 4800000, guid: 01a3e3fe9663caf45b1f2cf9a782ca64, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
