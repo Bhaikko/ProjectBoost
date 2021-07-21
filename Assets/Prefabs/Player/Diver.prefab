@@ -275,9 +275,9 @@ MonoBehaviour:
   rotateSpeed: 250
   thrustingSound: {fileID: 8300000, guid: a5957f730afdf4f41bf53133de72a8ee, type: 3}
   newLevelSound: {fileID: 8300000, guid: cdbf58e3eeafcd245b12a37f744292ae, type: 3}
-  thrustParticleSystem: {fileID: 0}
-  deathParticleSystem: {fileID: 0}
-  newLevelParticleSystem: {fileID: 0}
+  thrustParticleSystem: {fileID: 8076840836505255971}
+  deathParticleSystem: {fileID: 8076840836505255971}
+  newLevelParticleSystem: {fileID: 8076840836505255971}
 --- !u!1 &4306783794146117888
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,6 +564,62 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4306783792918658439}
     m_Modifications:
+    - target: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b, type: 3}
+      propertyPath: ShapeModule.angle
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b, type: 3}
+      propertyPath: VelocityModule.x.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b, type: 3}
+      propertyPath: VelocityModule.y.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b, type: 3}
+      propertyPath: ShapeModule.m_Rotation.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b, type: 3}
+      propertyPath: VelocityModule.inWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b, type: 3}
+      propertyPath: InitialModule.startSizeY.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b, type: 3}
+      propertyPath: InitialModule.startSizeZ.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b, type: 3}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b, type: 3}
+      propertyPath: InitialModule.startSpeed.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b, type: 3}
+      propertyPath: InitialModule.startLifetime.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6013339115655740619, guid: cc07484b367895e46b00464b8d39919b,
         type: 3}
       propertyPath: m_Name
@@ -592,27 +648,27 @@ PrefabInstance:
     - target: {fileID: 8344025163244406010, guid: cc07484b367895e46b00464b8d39919b,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.70710784
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8344025163244406010, guid: cc07484b367895e46b00464b8d39919b,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.70710576
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8344025163244406010, guid: cc07484b367895e46b00464b8d39919b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8344025163244406010, guid: cc07484b367895e46b00464b8d39919b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8344025163244406010, guid: cc07484b367895e46b00464b8d39919b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90.00001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8344025163244406010, guid: cc07484b367895e46b00464b8d39919b,
         type: 3}
@@ -629,6 +685,12 @@ PrefabInstance:
 --- !u!4 &278481417121077126 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8344025163244406010, guid: cc07484b367895e46b00464b8d39919b,
+    type: 3}
+  m_PrefabInstance: {fileID: 8076840837794108284}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8076840836505255971 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1398133599, guid: cc07484b367895e46b00464b8d39919b,
     type: 3}
   m_PrefabInstance: {fileID: 8076840837794108284}
   m_PrefabAsset: {fileID: 0}
