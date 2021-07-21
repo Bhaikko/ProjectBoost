@@ -50,6 +50,7 @@ namespace ProjectBoost.Player {
         // Update is called once per frame
         void Update()
         {
+            thrustParticleSystem.transform.rotation = Quaternion.Euler(Vector3.up);
             if (isLevelFinished) {
                 TranslateToLevelEnd();
                 return;
@@ -101,12 +102,12 @@ namespace ProjectBoost.Player {
                 if (!audioSource.isPlaying) {
                     audioSource.PlayOneShot(thrustingSound);
                 }
-                if (!thrustParticleSystem.isPlaying) { 
-                    thrustParticleSystem.Play();
-                }
+                // if (!thrustParticleSystem.isPlaying) { 
+                //     thrustParticleSystem.Play();
+                // }
             } else {
                 audioSource.Stop();
-                thrustParticleSystem.Stop();
+                // thrustParticleSystem.Stop();
             }
         }
 
@@ -141,7 +142,7 @@ namespace ProjectBoost.Player {
             isDead = true;
             
             audioSource.PlayOneShot(newLevelSound);
-            newLevelParticleSystem.Play();
+            // newLevelParticleSystem.Play();
 
             yield return new WaitForSeconds(1.5f);
 
@@ -153,8 +154,8 @@ namespace ProjectBoost.Player {
             isDead = true;
             audioSource.Stop();
             // audioSource.PlayOneShot(deathSound);
-            thrustParticleSystem.Stop();
-            deathParticleSystem.Play();
+            // thrustParticleSystem.Stop();
+            // deathParticleSystem.Play();
             yield return new WaitForSeconds(2.5f);
             // SceneManager.LoadScene(0);
 
