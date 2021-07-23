@@ -12,9 +12,17 @@ namespace ProjectBoost.UI
         [SerializeField] GameObject settingsUI;
         [SerializeField] GameObject controlsUI;
 
+        Animator mainMenuUIAnimator = null;
+        Animator settingsUIAnimator = null;
+        Animator controlsUIAnimator = null;
+
         [SerializeField] Slider volumeSlider;
 
         private void Start() {
+            mainMenuUIAnimator = mainMenuUI.GetComponent<Animator>();
+            settingsUIAnimator = mainMenuUI.GetComponent<Animator>();
+            controlsUIAnimator = mainMenuUI.GetComponent<Animator>();
+
             AudioListener.volume = volumeSlider.value;
             volumeSlider.onValueChanged.AddListener(delegate { OnVolumeChange(); });
         }
@@ -28,19 +36,20 @@ namespace ProjectBoost.UI
         }
 
         public void DisableUI() {
-            settingsUI.SetActive(false);
-            mainMenuUI.SetActive(false);
-            controlsUI.SetActive(false);
+            mainMenuUIAnimator.SetBool("ShouldTransitionOut", true);
+            settingsUIAnimator.SetBool("ShouldTransitionOut", true);
+            // controlsUIAnimator.SetBool("ShouldTransitionOut", true);
         }
 
         public void OnPressSettings() {
             DisableUI();
-            settingsUI.SetActive(true);
+            settingsUIAnimator.SetBool("ShouldTransitionOut", false);
+            Debug.Log("sin");
         }
 
         public void OnPressBack() {
             DisableUI();
-            mainMenuUI.SetActive(true);
+            mainMenuUIAnimator.SetBool("ShouldTransitionOut", false);
         }
 
         public void OnPressControls() {
