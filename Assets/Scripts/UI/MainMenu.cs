@@ -16,6 +16,8 @@ namespace ProjectBoost.UI
         Animator settingsUIAnimator = null;
         Animator controlsUIAnimator = null;
 
+        string animatorStateKey = "ShouldTransitionOut";
+
         [SerializeField] Slider volumeSlider;
 
         private void Start() {
@@ -36,24 +38,24 @@ namespace ProjectBoost.UI
         }
 
         public void DisableUI() {
-            mainMenuUIAnimator.SetBool("ShouldTransitionOut", true);
-            settingsUIAnimator.SetBool("ShouldTransitionOut", true);
-            controlsUIAnimator.SetBool("ShouldTransitionOut", true);
+            mainMenuUIAnimator.SetBool(animatorStateKey, true);
+            settingsUIAnimator.SetBool(animatorStateKey, true);
+            controlsUIAnimator.SetBool(animatorStateKey, true);
         }
 
         public void OnPressSettings() {
             DisableUI();
-            settingsUIAnimator.SetBool("ShouldTransitionOut", false);
+            settingsUIAnimator.SetBool(animatorStateKey, false);
         }
 
         public void OnPressBack() {
             DisableUI();
-            mainMenuUIAnimator.SetBool("ShouldTransitionOut", false);
+            mainMenuUIAnimator.SetBool(animatorStateKey, false);
         }
 
         public void OnPressControls() {
             DisableUI();
-            controlsUI.SetActive(true);
+            controlsUIAnimator.SetBool(animatorStateKey, false);
         }
 
         public void OnVolumeChange() {
