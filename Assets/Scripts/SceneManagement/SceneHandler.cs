@@ -19,6 +19,7 @@ namespace ProjectBoost.SceneManagement {
             int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
             SceneManager.LoadScene(currentSceneIndex);
+            
         }
 
         public void GameOver() 

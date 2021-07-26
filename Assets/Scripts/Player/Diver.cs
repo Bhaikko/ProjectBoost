@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ProjectBoost.Core;
 using ProjectBoost.Environment;
 using ProjectBoost.SceneManagement;
+using ProjectBoost.UI;
 using UnityEngine;
 
 namespace ProjectBoost.Player {
@@ -14,11 +15,8 @@ namespace ProjectBoost.Player {
 
         [SerializeField] AudioClip thrustingSound = null;
         // [SerializeField] AudioClip deathSound = null;
-        [SerializeField] AudioClip newLevelSound = null;
 
         [SerializeField] ParticleSystem thrustParticleSystem = null;
-        [SerializeField] ParticleSystem deathParticleSystem = null;
-        [SerializeField] ParticleSystem newLevelParticleSystem = null;
 
         Rigidbody myRigidbody = null;
         AudioSource audioSource = null;
@@ -53,6 +51,7 @@ namespace ProjectBoost.Player {
             thrustParticleSystem.transform.rotation = Quaternion.Euler(Vector3.up);
             if (isLevelFinished) {
                 TranslateToLevelEnd();
+                StartCoroutine(LoadNextScene());
                 return;
             }
 
@@ -117,34 +116,15 @@ namespace ProjectBoost.Player {
                 return; 
             }
 
-            LandingPad landingPad = collision.gameObject.GetComponent<LandingPad>();
-            if (landingPad) {
-                switch (landingPad.GetPadType())
-                {
-                    case LandingPad.PadType.FRIENDLY:
-                        // Might Consider Refuel Functionality
-                        break;
-                    
-                    case LandingPad.PadType.LANDING:
-                        StartCoroutine(LoadNextScene());
-                        break;
-
-                    default:
-                        break;
-                }
-            } else {
-                StartCoroutine(HandleDeath());
-            }
+            StartCoroutine(HandleDeath());
+            
         }
 
         IEnumerator LoadNextScene()
         {
             isDead = true;
-            
-            audioSource.PlayOneShot(newLevelSound);
-            // newLevelParticleSystem.Play();
-
             yield return new WaitForSeconds(1.5f);
+            FindObjectOfType<Fader>().FadeOut();
 
             gameMode.LoadNextScene();
         }
@@ -155,10 +135,7 @@ namespace ProjectBoost.Player {
             audioSource.Stop();
             // audioSource.PlayOneShot(deathSound);
             // thrustParticleSystem.Stop();
-            // deathParticleSystem.Play();
             yield return new WaitForSeconds(2.5f);
-            // SceneManager.LoadScene(0);
-
             gameMode.HandleDeath();
         }
 
