@@ -113,7 +113,7 @@ namespace ProjectBoost.Player {
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (isDead) { 
+            if (isDead || isLevelFinished) { 
                 return; 
             }
 

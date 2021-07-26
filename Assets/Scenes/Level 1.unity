@@ -218,21 +218,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1796226907698289547, guid: 447af34c5b6c1b24ba26b2ca07ccc967,
-        type: 3}
-      propertyPath: faderValue
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1796226907698289547, guid: 447af34c5b6c1b24ba26b2ca07ccc967,
-        type: 3}
-      propertyPath: shouldFadeIn
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1796226907698289547, guid: 447af34c5b6c1b24ba26b2ca07ccc967,
-        type: 3}
-      propertyPath: shouldFadeOut
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 447af34c5b6c1b24ba26b2ca07ccc967, type: 3}
 --- !u!1 &213150831
@@ -571,7 +556,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 263597251, guid: 1365437ecbfa690488d53d929671cdbb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -37.65799
+      value: -37.656967
       objectReference: {fileID: 0}
     - target: {fileID: 263597251, guid: 1365437ecbfa690488d53d929671cdbb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -661,7 +646,7 @@ PrefabInstance:
     - target: {fileID: 2426209664077679399, guid: 1365437ecbfa690488d53d929671cdbb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -37.65799
+      value: -37.656967
       objectReference: {fileID: 0}
     - target: {fileID: 2426209664077679399, guid: 1365437ecbfa690488d53d929671cdbb,
         type: 3}
