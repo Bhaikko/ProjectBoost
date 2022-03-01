@@ -6,6 +6,7 @@ Shader "Unlit/Grass"
     {
         _MainTex ("Albedo", 2D) = "white" {}
 
+        _Transparency ("Transparency", float) = 1.0
         _WindDirection ("WindDirection", Vector) = (6, 0, 0, 0)
         _WindDensity ("WindDensity", float) = 2
         _WindStrength ("WindStrength", float) = 0.3
@@ -16,6 +17,7 @@ Shader "Unlit/Grass"
         Tags { "ForceNoShadowCasting" = "True"}
         LOD 200
         Cull Off
+        Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
         {
@@ -24,6 +26,7 @@ Shader "Unlit/Grass"
             #pragma fragment frag
 
             #include "UnityCG.cginc"
+
 
             struct appdata
             {
@@ -43,6 +46,7 @@ Shader "Unlit/Grass"
             float4 _WindDirection;
             float _WindDensity;
             float _WindStrength;
+            float _Transparency;
 
             float2 unity_gradientNoise_dir(float2 p)
             {
@@ -95,7 +99,8 @@ Shader "Unlit/Grass"
                 if (col.w < 0.1f) {
                     discard;
                 }
-
+                
+                col.w = _Transparency;
                 return col;
             }
             ENDCG

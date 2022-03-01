@@ -12,6 +12,7 @@ namespace ProjectBoost.Environment {
 
         [SerializeField] float hidingOffset = 5.0f;
         [SerializeField] List<Eel> eels = new List<Eel>();
+        [SerializeField] PlantController plantController = null;
 
         void Start()
         {
@@ -26,6 +27,7 @@ namespace ProjectBoost.Environment {
             ) {
                 diverRef.SetHidingStatus(true, hidingOffset);
                 LightUpEels();
+                plantController.ChangeIntensitiesOfPlants(0.1f);
             }
         }
 
@@ -37,6 +39,8 @@ namespace ProjectBoost.Environment {
             ) {
                 diverRef.SetHidingStatus(false);
                 UnLitEels();
+                plantController.ChangeIntensitiesOfPlants(1.0f);
+                
             }
         }
 
