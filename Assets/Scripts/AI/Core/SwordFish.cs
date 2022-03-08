@@ -68,6 +68,7 @@ namespace ProjectBoost.AI {
 
         private void ChargeTowardsPlayer()
         {
+            
             m_rigidbody.velocity += new Vector3(velocityDirection, 0.0f, 0.0f) * Time.deltaTime * chargeSpeed;
             
         }
